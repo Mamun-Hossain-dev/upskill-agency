@@ -1,61 +1,100 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('/images/hero-bg.svg')] bg-cover bg-center"></div>
+    <section
+      id="home"
+      className="relative w-full h-[80vh] sm:h-[70vh] min-h-[500px] overflow-hidden"
+    >
+      {/* Background Image */}
+      <div className="absolute top-0 left-0 w-full h-full z-0">
+        <Image
+          src="/images/banner3.jpg"
+          alt="Hero Background"
+          fill
+          className="object-cover object-center"
+          priority
+          quality={100}
+        />
+      </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
-            {/* Text Content */}
-            <div>
-              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                Welcome to{" "}
-                <span className="text-shadow-indigo-600">YourAgency</span>
-              </h1>
-              <p className="text-lg md:text-xl mb-8 text-primary-content/90">
-                We offer top-tier{" "}
-                <span className="font-semibold">web development</span>,{" "}
-                <span className="font-semibold">design</span>, and{" "}
-                <span className="font-semibold">digital marketing</span>{" "}
-                services tailored to elevate your business.
-              </p>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0c0128]/95 via-[#32024c]/80 to-transparent" />
 
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="btn btn-primary btn-lg shadow-md hover:scale-105 transition-transform"
+      {/* Main Content */}
+      <div className="relative z-20 flex flex-col justify-center h-full px-3 sm:px-4 md:px-10 lg:px-16 xl:px-32 max-w-screen-xl ">
+        <div className="max-w-3xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            Empowering Brands through Design, Code, and Digital Strategy
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-8">
+            We transform ideas into exceptional digital experiences that drive
+            growth and engagement for forward-thinking businesses.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex gap-4">
+            <Link
+              href="/quote"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-base md:text-lg px-6 py-4 md:px-8 md:py-5 shadow transition"
+            >
+              Get a Free Quote
+            </Link>
+            <Link
+              href="/work"
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-6 py-4 md:px-8 md:py-5 shadow backdrop-blur-sm transition"
+            >
+              View Our Work
+            </Link>
+          </div>
+
+          {/* Trusted By Section */}
+          <div className="mt-12 sm:mt-16 flex items-center flex-wrap gap-4 sm:gap-6">
+            <div className="flex -space-x-3 sm:-space-x-4">
+              {[21, 22, 23, 24].map((seq) => (
+                <span
+                  key={seq}
+                  className="relative flex shrink-0 overflow-hidden rounded-full border-2 border-indigo-900 w-9 h-9 sm:w-10 sm:h-10"
                 >
-                  Contact Us
-                </Link>
-                <Link
-                  href="/quote"
-                  className="btn btn-outline btn-primary btn-lg hover:scale-105 transition-transform"
-                >
-                  Get a Free Quote
-                </Link>
-              </div>
+                  <Image
+                    src={`https://readdy.ai/api/search-image?query=Professional%20headshot%20portrait%20with%20neutral%20expression%20against%20simple%20gradient%20background%2C%20clean%20corporate%20style&width=100&height=100&seq=${seq}&orientation=squarish`}
+                    alt={`Client ${seq}`}
+                    width={40}
+                    height={40}
+                    className="aspect-square object-cover"
+                  />
+                </span>
+              ))}
             </div>
-
-            {/* Visual Element */}
-            <div className="relative">
-              <div className="w-full max-w-md mx-auto animate-fade-in-up">
-                <Image
-                  src="/images/banner3.jpg"
-                  alt="Agency illustration"
-                  width={500}
-                  height={500}
-                  className="w-full drop-shadow-2xl"
-                  priority
-                />
+            <div>
+              <p className="text-white font-medium text-sm sm:text-base">
+                Trusted by 200+ clients worldwide
+              </p>
+              <div className="flex items-center mt-1 text-yellow-400 text-sm">
+                {Array(5)
+                  .fill(0)
+                  .map((_, i) => (
+                    <i key={i} className="fa-solid fa-star"></i>
+                  ))}
+                <span className="ml-2 text-white text-xs sm:text-sm">
+                  5.0 (180+ reviews)
+                </span>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+
+      {/* Scroll Down Indicator */}
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+        <a
+          href="#services"
+          className="text-white/80 hover:text-white transition-colors"
+        >
+          <i className="fa-solid fa-chevron-down text-xl sm:text-2xl"></i>
+        </a>
+      </div>
+    </section>
   );
 }

@@ -26,7 +26,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="navbar bg-base-100 shadow-lg sticky top-0 z-50 text-gray-800">
+    <nav className="navbar bg-base-100 shadow-md sticky top-0 z-50 text-gray-700 px-2 rounded-md">
       <div className="navbar-start">
         {/* Mobile menu button */}
         <div className="dropdown lg:hidden">
@@ -62,7 +62,7 @@ export default function Navigation() {
 
         {/* Logo */}
         <Link href="/" className="btn btn-ghost text-xl font-bold">
-          <span className="text-primary">Your</span>Agency
+          <i className="text-primary">UpSkill</i>Agency
         </Link>
       </div>
 
@@ -85,14 +85,6 @@ export default function Navigation() {
       </div>
 
       <div className="navbar-end gap-2">
-        {/* Get Quote Button */}
-        <Link
-          href="/quote"
-          className="btn btn-primary btn-sm hidden sm:inline-flex"
-        >
-          Get Quote
-        </Link>
-
         {/* User Menu */}
         {isAuthenticated ? (
           <div className="dropdown dropdown-end">

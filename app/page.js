@@ -1,16 +1,24 @@
 import ContactForm from "@/components/ContactForm";
+import OurApproach from "@/components/DataDriven";
 import HeroSection from "@/components/HeroSection";
+import TrustedSection from "@/components/TrustedSection";
 
-// app/page.js
 export default function HomePage() {
   return (
-    <section className="max-w-4xl mx-auto text-center">
-      {/* hero section */}
+    <>
+      {/* Hero section needs full width */}
       <HeroSection />
-      {/* contact with us  */}
-      <div>
-        <ContactForm />
-      </div>
-    </section>
+
+      {/* trust by companies section */}
+      <TrustedSection />
+
+      {/* data driven section */}
+      <OurApproach />
+
+      {/* Other content with constrained width */}
+      <section className="max-w-4xl mx-auto w-full px-4 py-12">
+        {/* <ContactForm /> */}
+      </section>
+    </>
   );
 }
