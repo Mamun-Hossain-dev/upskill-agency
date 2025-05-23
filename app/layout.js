@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body className="">
+      <body className="bg-slate-200">
         <AuthProvider>
           <Navigation />
           <main className="min-h-screen w-full bg-slate-50">{children}</main>

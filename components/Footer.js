@@ -163,7 +163,7 @@ export default function Footer() {
       </div>
 
       {/* Newsletter Signup */}
-      <div className="bg-base-200">
+      {/* <div className="bg-base-200">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h3 className="text-xl font-semibold mb-2">Stay Updated</h3>
@@ -180,7 +180,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Bottom Bar */}
       <div className="bg-base-300 border-t border-base-content/10">

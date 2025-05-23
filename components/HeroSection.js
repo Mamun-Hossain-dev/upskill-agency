@@ -37,13 +37,13 @@ export default function HeroSection() {
           <div className="flex gap-4">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-base md:text-lg px-6 py-4 md:px-8 md:py-5 shadow transition"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-base md:text-lg px-3 py-2 md:px-8 md:py-5 shadow transition"
             >
               Get a Free Quote
             </Link>
             <Link
               href="/work"
-              className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-6 py-4 md:px-8 md:py-5 shadow backdrop-blur-sm transition"
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-3 py-1 md:px-8 md:py-5 shadow backdrop-blur-sm transition"
             >
               View Our Work
             </Link>

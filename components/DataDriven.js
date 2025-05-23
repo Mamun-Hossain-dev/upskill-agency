@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -54,13 +54,14 @@ const approachSteps = [
 export default function OurApproach() {
   return (
     <section className="px-4 py-12 md:py-20 bg-slate-50 container mx-auto">
-      <h2 className="text-sm font-semibold inline bg-indigo-200 p-1 rounded  text-indigo-900 text-center">
+      <h2 className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center">
         Our Approach
       </h2>
-      <div className="flex items-center justify-between gap-10  md:justify-between mt-5 flex-wrap md:flex-nowrap">
+
+      <div className="flex items-center justify-between gap-10 md:justify-between mt-8 flex-wrap md:flex-nowrap">
         {/* Left Column */}
         <div>
-          <h3 className="text-xl text-indigo-600 mb-4">
+          <h3 className="text-xl font-medium text-indigo-600 mb-4">
             Data-Driven Strategy with Creative Excellence
           </h3>
           <p className="text-gray-700 mb-8">
@@ -81,10 +82,10 @@ export default function OurApproach() {
           </div>
         </div>
 
-        {/* Right Column */}
+        {/* Right Column: Chart */}
         <div className="bg-white p-6 rounded-lg shadow-md w-full h-[500px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
+            <AreaChart
               data={data}
               margin={{ top: 10, right: 30, left: 0, bottom: 20 }}
             >
@@ -93,21 +94,29 @@ export default function OurApproach() {
               <YAxis />
               <Tooltip />
               <Legend verticalAlign="bottom" height={36} />
-              <Line
+
+              {/* Value Growth: Indigo Area + Line */}
+              <Area
                 type="monotone"
                 dataKey="valueGrowth"
-                stroke="#6366f1"
+                stroke="#6366f1" // dark indigo
+                fill="#c7d2fe" // light indigo
                 strokeWidth={3}
+                dot={false}
                 name="Value Growth"
               />
-              <Line
+
+              {/* Performance Score: Pink/Red Area + Line */}
+              <Area
                 type="monotone"
                 dataKey="performanceScore"
-                stroke="#10b981"
+                stroke="#ec4899" // rose-500
+                fill="#fbcfe8" // rose-200
                 strokeWidth={3}
+                dot={false}
                 name="Performance Score"
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
         </div>
       </div>

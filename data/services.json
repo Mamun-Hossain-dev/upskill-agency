@@ -1,0 +1,79 @@
+[
+  {
+    "id": "11",
+    "title": "Digital Marketing",
+    "description": "Comprehensive digital marketing strategies that drive traffic, engagement, and conversions across all major platforms.",
+    "icon": "/icons/services/marketing.svg",
+    "image": "/images/digital.jpg"
+  },
+  {
+    "id": "1",
+    "title": "Social Media Advertising",
+    "description": "Reach your ideal audience with powerful ad strategies across Facebook, Instagram, and LinkedIn.",
+    "icon": "/icons/services/ads.svg",
+    "image": "/images/social.webp"
+  },
+  {
+    "id": "2",
+    "title": "Social Media Management",
+    "description": "We manage your entire social presence with content creation, scheduling, and audience engagement.",
+    "icon": "/icons/services/management.svg",
+    "image": "/images/management.jpg"
+  },
+  {
+    "id": "3",
+    "title": "Google Ads (Search, Display & YouTube)",
+    "description": "Launch high-converting Google Ads campaigns to drive traffic and leads with certified experts.",
+    "icon": "/icons/services/google-ads.svg",
+    "image": "/images/google-ads.jpg"
+  },
+  {
+    "id": "4",
+    "title": "Facebook Campaign with Pixel & Conversion API",
+    "description": "Data-driven Facebook ad campaigns with complete Pixel and Conversion API setup for tracking and ROI.",
+    "icon": "/icons/services/facebook-pixel.svg",
+    "image": "/images/facebook.jpg"
+  },
+  {
+    "id": "5",
+    "title": "B2B Lead Generation",
+    "description": "Get verified, high-quality B2B leads via LinkedIn, Google, and personalized email outreach strategies.",
+    "icon": "/icons/services/b2b.svg",
+    "image": "/images/b2b.jpg"
+  },
+  {
+    "id": "6",
+    "title": "Instagram Organic Growth",
+    "description": "Grow your Instagram with real followers and engagement using authentic, organic growth methods.",
+    "icon": "/icons/services/instagram.svg",
+    "image": "/images/insta.jpg"
+  },
+  {
+    "id": "7",
+    "title": "YouTube SEO & Organic Video Promotion",
+    "description": "Rank your videos on YouTube search and boost organic views through proven SEO techniques.",
+    "icon": "/icons/services/youtube.svg",
+    "image": "/images/youtube.jpg"
+  },
+  {
+    "id": "9",
+    "title": "Website SEO (Search Engine Optimization)",
+    "description": "Boost your website’s visibility with keyword research, on-page & technical SEO, and backlinks.",
+    "icon": "/icons/services/seo.svg",
+    "image": "/images/web-seo.jpg"
+  },
+  {
+    "id": "10",
+    "title": "Website Creation & Design",
+    "description": "Modern, responsive, SEO-friendly websites built to convert — from portfolios to full e-commerce sites.",
+    "icon": "/icons/services/web-design.svg",
+    "image": "./images/web.jpg"
+  },
+  {
+    "id": "8",
+    "title": "Video Editing",
+    "description": "Professional video editing for social media, YouTube, and marketing campaigns that stand out.",
+    "icon": "/icons/services/video-editing.svg",
+    "image": "./images/video.webp"
+  }
+]
