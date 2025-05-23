@@ -62,7 +62,7 @@ export default function Navigation() {
 
         {/* Logo */}
         <Link href="/" className="btn btn-ghost text-xl font-bold">
-          <i className="text-primary">UpSkill</i>Agency
+          <i className="text-primary">logo</i>
         </Link>
       </div>
 

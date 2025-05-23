@@ -7,7 +7,7 @@ import { RiNetflixFill } from "react-icons/ri";
 
 export default function TrustedSection() {
   return (
-    <div className="container mx-auto mt-[80px] mb-[52px] text-gray-600">
+    <div className="container mx-auto mt-[80px] mb-[52px] text-gray-600 px-2">
       <h2 className="text-indigo-800 text-xl text-center uppercase font-semibold mb-12">
         Trusted by Industry Leaders
       </h2>

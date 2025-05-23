@@ -1,5 +1,11 @@
-// app/layout.js
-// "use client";
+// app/layout.tsx or app/page.tsx
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 import "./globals.css"; // Tailwind/DaisyUI base styles
 import { AuthProvider } from "../context/AuthContext";
@@ -7,7 +13,7 @@ import Navigation from "../components/Navigation";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "YourAgency | Digital Services",
+  title: "Up skill digital agency | Digital Services",
   description: "Professional web development, digital marketing, and more.",
 };
 

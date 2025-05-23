@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative w-full h-[80vh] sm:h-[70vh] min-h-[500px] overflow-hidden"
+      className="relative w-full h-[70vh] min-h-[500px] overflow-hidden"
     >
       {/* Background Image */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
