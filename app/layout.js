@@ -2,6 +2,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout"; // safe: it's dynamic client-only
+import WhatsAppButton from "@/components/Whatsapp";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light" className={poppins.variable}>
       <body className={`${poppins.className} bg-slate-200 antialiased`}>
         <ClientLayout>{children}</ClientLayout>
+        <WhatsAppButton />
       </body>
     </html>
   );
