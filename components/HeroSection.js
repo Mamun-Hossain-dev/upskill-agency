@@ -180,10 +180,10 @@ export default function HeroSection() {
               whileTap="tap"
             >
               <Link
-                href="/quote"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-base md:text-lg px-3 py-2 md:px-8 md:py-5 shadow transition-colors"
               >
-                Get a Free Quote
+                Get in touch
               </Link>
             </motion.div>
             <motion.div
