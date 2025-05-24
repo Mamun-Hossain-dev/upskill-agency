@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   User,
@@ -21,11 +22,8 @@ export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    serviceType: "",
-    subject: "",
-    message: "",
-    marketingConsent: false,
+    service: "",
+    description: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -36,8 +34,6 @@ export default function ContactSection() {
       newErrors.name = "Name is required";
     } else if (formData.name.length < 2) {
       newErrors.name = "Name must be at least 2 characters";
-    } else if (formData.name.length > 50) {
-      newErrors.name = "Name cannot exceed 50 characters";
     }
 
     if (!formData.email.trim()) {
@@ -46,28 +42,10 @@ export default function ContactSection() {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (formData.phone && !/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone)) {
-      newErrors.phone = "Please enter a valid phone number";
-    }
-
-    if (!formData.serviceType) {
-      newErrors.serviceType = "Please select a service type";
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subject is required";
-    } else if (formData.subject.length < 5) {
-      newErrors.subject = "Subject must be at least 5 characters";
-    } else if (formData.subject.length > 100) {
-      newErrors.subject = "Subject cannot exceed 100 characters";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (formData.message.length < 20) {
-      newErrors.message = "Message must be at least 20 characters";
-    } else if (formData.message.length > 1000) {
-      newErrors.message = "Message cannot exceed 1000 characters";
+    if (!formData.description.trim()) {
+      newErrors.description = "Description is required";
+    } else if (formData.description.length < 10) {
+      newErrors.description = "Description must be at least 10 characters";
     }
 
     setErrors(newErrors);
@@ -75,10 +53,10 @@ export default function ContactSection() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
 
     if (errors[name]) {
@@ -86,167 +64,280 @@ export default function ContactSection() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (!validateForm()) return;
 
     setIsLoading(true);
     setMessage({ type: "", text: "" });
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setMessage({
-          type: "success",
-          text: "Thank you for your message! We'll get back to you within 24 hours.",
-        });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          serviceType: "",
-          subject: "",
-          message: "",
-          marketingConsent: false,
-        });
-      } else {
-        setMessage({
-          type: "error",
-          text:
-            result.message || "Something went wrong. Please try again later.",
-        });
-      }
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
+    // Simulate API call
+    setTimeout(() => {
       setMessage({
-        type: "error",
-        text: "Failed to send message. Please check your connection and try again.",
+        type: "success",
+        text: "Thank you for your message! We'll get back to you soon.",
       });
-    } finally {
+      setFormData({
+        name: "",
+        email: "",
+        service: "",
+        description: "",
+      });
       setIsLoading(false);
-    }
+    }, 2000);
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Github, href: "#", label: "GitHub" },
+    {
+      icon: Facebook,
+      href: "#",
+      label: "Facebook",
+      color: "hover:text-blue-600",
+    },
+    { icon: Twitter, href: "#", label: "Twitter", color: "hover:text-sky-500" },
+    {
+      icon: Instagram,
+      href: "#",
+      label: "Instagram",
+      color: "hover:text-pink-500",
+    },
+    {
+      icon: Linkedin,
+      href: "#",
+      label: "LinkedIn",
+      color: "hover:text-blue-700",
+    },
+    { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-800" },
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
+    <motion.div
+      className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column - Contact Info */}
-          <div className="space-y-8">
-            <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <motion.div className="space-y-8" variants={slideInLeft}>
+            <motion.div variants={itemVariants}>
+              <motion.h1
+                className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
                 Lets Start a{" "}
-                <span className="text-indigo-700">Conversation</span>
-              </h1>
-              <p className="text-lg text-gray-600 leading-relaxed">
+                <motion.span
+                  className="text-indigo-700"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  Conversation
+                </motion.span>
+              </motion.h1>
+              <motion.p
+                className="text-lg text-gray-600 leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 Ready to discuss your project? Fill out the form and our team
                 will get back to you within 24 hours.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            <div className="space-y-6">
-              <ContactItem
-                icon={<Mail className="text-indigo-600" size={24} />}
-                title="Email Us"
-                detail="hello@creativeedge.com"
-                href="mailto:hello@creativeedge.com"
-              />
-              <ContactItem
-                icon={<Phone className="text-indigo-500" size={24} />}
-                title="Call Us"
-                detail="+1 (555) 123-4567"
-                href="tel:+15551234567"
-              />
-              <ContactItem
-                icon={<MapPin className="text-indigo-600" size={24} />}
-                title="Visit Us"
-                detail="123 Creative Street, Design District, CA 94103"
-                href="https://maps.google.com"
-              />
-            </div>
+            <motion.div className="space-y-6" variants={containerVariants}>
+              {[
+                {
+                  icon: <Mail className="text-indigo-600" size={24} />,
+                  title: "Email Us",
+                  detail: "hello@creativeedge.com",
+                  href: "mailto:hello@creativeedge.com",
+                },
+                {
+                  icon: <Phone className="text-indigo-500" size={24} />,
+                  title: "Call Us",
+                  detail: "+1 (555) 123-4567",
+                  href: "tel:+15551234567",
+                },
+                {
+                  icon: <MapPin className="text-indigo-600" size={24} />,
+                  title: "Visit Us",
+                  detail: "123 Creative Street, Design District, CA 94103",
+                  href: "https://maps.google.com",
+                },
+              ].map((contact, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ContactItem {...contact} />
+                </motion.div>
+              ))}
+            </motion.div>
 
-            <div>
+            <motion.div variants={itemVariants}>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Follow Us
               </h3>
-              <div className="flex space-x-4">
+              <motion.div
+                className="flex space-x-4"
+                variants={containerVariants}
+              >
                 {socialLinks.map((social, index) => {
                   const IconComponent = social.icon;
                   return (
-                    <a
+                    <motion.a
                       key={index}
                       href={social.href}
                       aria-label={social.label}
-                      className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 hover:text-indigo-700 hover:shadow-xl hover:bg-indigo-50 transition-all duration-300 hover:-translate-y-2 hover:scale-110 transform"
+                      className={`w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 ${social.color} transition-colors duration-300`}
+                      variants={itemVariants}
+                      whileHover={{
+                        scale: 1.15,
+                        y: -8,
+                        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <IconComponent size={20} />
-                    </a>
+                      <motion.div
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <IconComponent size={20} />
+                      </motion.div>
+                    </motion.a>
                   );
                 })}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <motion.div
+              className="bg-white rounded-2xl p-6 shadow-lg"
+              variants={itemVariants}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+              }}
+              transition={{ duration: 0.3 }}
+            >
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Business Hours
               </h3>
-              <div className="space-y-2 text-gray-600">
-                <div className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span>10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>Closed</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              <motion.div
+                className="space-y-2 text-gray-600"
+                variants={containerVariants}
+              >
+                {[
+                  { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
+                  { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
+                  { day: "Sunday", hours: "Closed" },
+                ].map((schedule, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span>{schedule.day}</span>
+                    <span>{schedule.hours}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Column - Contact Form */}
-          <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <motion.div
+            className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10"
+            variants={slideInRight}
+            whileHover={{
+              boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.h2
+              className="text-3xl font-bold text-gray-900 mb-6"
+              variants={itemVariants}
+            >
               Contact Us
-            </h2>
+            </motion.h2>
 
-            {message.text && (
-              <div
-                className={`mb-6 p-4 rounded-lg ${
-                  message.type === "success"
-                    ? "bg-green-50 text-green-800 border border-green-200"
-                    : "bg-red-50 text-red-800 border border-red-200"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
+            <AnimatePresence>
+              {message.text && (
+                <motion.div
+                  className={`mb-6 p-4 rounded-lg ${
+                    message.type === "success"
+                      ? "bg-green-50 text-green-800 border border-green-200"
+                      : "bg-red-50 text-red-800 border border-red-200"
+                  }`}
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {message.text}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* ✅ Form now has onSubmit */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <InputField
+            <motion.div className="space-y-6" variants={containerVariants}>
+              <motion.div variants={itemVariants}>
+                <AnimatedInputField
                   icon={<User size={18} />}
                   label="Full Name"
                   name="name"
@@ -256,7 +347,10 @@ export default function ContactSection() {
                   error={errors.name}
                   required
                 />
-                <InputField
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <AnimatedInputField
                   icon={<Mail size={18} />}
                   label="Email Address"
                   name="email"
@@ -267,143 +361,160 @@ export default function ContactSection() {
                   error={errors.email}
                   required
                 />
-              </div>
+              </motion.div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <InputField
-                  icon={<Phone size={18} />}
-                  label="Phone Number"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="Your phone number"
-                  error={errors.phone}
-                  optional
-                />
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Service Interest <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      name="serviceType"
-                      value={formData.serviceType}
-                      onChange={handleInputChange}
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none bg-white ${
-                        errors.serviceType
-                          ? "border-red-300"
-                          : "border-gray-300"
-                      }`}
-                    >
-                      <option value="">Select a service</option>
-                      <option value="web-development">Web Development</option>
-                      <option value="graphic-design">Graphic Design</option>
-                      <option value="seo">SEO</option>
-                      <option value="digital-marketing">
-                        Digital Marketing
-                      </option>
-                      <option value="tech-solutions">Tech Solutions</option>
-                      <option value="general">General Inquiry</option>
-                    </select>
-                    <Briefcase
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={18}
-                    />
-                  </div>
-                  {errors.serviceType && (
-                    <p className="text-sm text-red-600">{errors.serviceType}</p>
-                  )}
-                </div>
-              </div>
-
-              <InputField
-                label="Subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                placeholder="Brief description of your inquiry"
-                error={errors.subject}
-                required
-              />
-
-              <div className="space-y-2">
+              <motion.div className="space-y-2" variants={itemVariants}>
                 <label className="block text-sm font-medium text-gray-700">
-                  Message <span className="text-red-500">*</span>
+                  Service Interest{" "}
+                  <span className="text-gray-400 ml-1">(Optional)</span>
                 </label>
-                <div className="relative">
+                <motion.div
+                  className="relative"
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none bg-white transition-all duration-200"
+                  >
+                    <option value="">Select a service (optional)</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="graphic-design">Graphic Design</option>
+                    <option value="seo">SEO</option>
+                    <option value="digital-marketing">Digital Marketing</option>
+                    <option value="tech-solutions">Tech Solutions</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
+                  <Briefcase
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={18}
+                  />
+                </motion.div>
+              </motion.div>
+
+              <motion.div className="space-y-2" variants={itemVariants}>
+                <label className="block text-sm font-medium text-gray-700">
+                  Description <span className="text-red-500">*</span>
+                </label>
+                <motion.div
+                  className="relative"
+                  whileFocus={{ scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <textarea
-                    name="message"
-                    value={formData.message}
+                    name="description"
+                    value={formData.description}
                     onChange={handleInputChange}
                     rows={5}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none ${
-                      errors.message ? "border-red-300" : "border-gray-300"
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-all duration-200 ${
+                      errors.description ? "border-red-300" : "border-gray-300"
                     }`}
-                    placeholder="Describe your project, timeline, budget, or questions..."
+                    placeholder="Tell us about your project, requirements, or questions..."
                   />
                   <MessageSquare
                     className="absolute left-3 top-4 text-gray-400"
                     size={18}
                   />
-                </div>
-                {errors.message && (
-                  <p className="text-sm text-red-600">{errors.message}</p>
-                )}
+                </motion.div>
+                <AnimatePresence>
+                  {errors.description && (
+                    <motion.p
+                      className="text-sm text-red-600"
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {errors.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
                 <p className="text-sm text-gray-500">
                   The more details you provide, the better we can assist you.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="flex items-start space-x-3">
-                <input
-                  type="checkbox"
-                  name="marketingConsent"
-                  checked={formData.marketingConsent}
-                  onChange={handleInputChange}
-                  className="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-                <label className="text-sm text-gray-600">
-                  I would like to receive updates about services and offers via
-                  email.
-                </label>
-              </div>
-
-              <button
-                type="submit"
+              <motion.button
+                type="button"
+                onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full bg-indigo-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-800 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center space-x-2"
+                className="w-full bg-indigo-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-800 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed duration-200 flex items-center justify-center space-x-2"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
               >
-                {isLoading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send size={20} />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
+                <AnimatePresence mode="wait">
+                  {isLoading ? (
+                    <motion.div
+                      key="loading"
+                      className="flex items-center space-x-2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <motion.div
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
+                      <span>Sending...</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="send"
+                      className="flex items-center space-x-2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <motion.div
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Send size={20} />
+                      </motion.div>
+                      <span>Send Message</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-function InputField({ icon, label, optional, error, required, ...props }) {
+function AnimatedInputField({
+  icon,
+  label,
+  optional,
+  error,
+  required,
+  ...props
+}) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700">
         {label} {required && <span className="text-red-500">*</span>}
         {optional && <span className="text-gray-400 ml-1">(Optional)</span>}
       </label>
-      <div className="relative">
+      <motion.div
+        className="relative"
+        whileFocus={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+      >
         <input
-          className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
+          className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 ${
             error ? "border-red-300" : "border-gray-300"
           }`}
           {...props}
@@ -413,31 +524,53 @@ function InputField({ icon, label, optional, error, required, ...props }) {
             {icon}
           </div>
         )}
-      </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      </motion.div>
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            className="text-sm text-red-600"
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+          >
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 function ContactItem({ icon, title, detail, href }) {
   const content = (
-    <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
-      <div className="flex-shrink-0 mt-1">{icon}</div>
+    <motion.div
+      className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm transition-shadow duration-200"
+      whileHover={{
+        boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+        y: -2,
+      }}
+      transition={{ duration: 0.2 }}
+    >
+      <motion.div
+        className="flex-shrink-0 mt-1"
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        transition={{ duration: 0.2 }}
+      >
+        {icon}
+      </motion.div>
       <div>
         <h3 className="font-semibold text-gray-900">{title}</h3>
         <p className="text-gray-600 mt-1">{detail}</p>
       </div>
-    </div>
+    </motion.div>
   );
 
   if (href) {
     return (
-      <a
-        href={href}
-        className="block hover:scale-105 transition-transform duration-200"
-      >
+      <motion.a href={href} className="block" whileTap={{ scale: 0.98 }}>
         {content}
-      </a>
+      </motion.a>
     );
   }
 

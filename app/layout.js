@@ -1,4 +1,4 @@
-// app/layout.tsx or app/page.tsx
+// app/layout.tsx
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -11,6 +11,7 @@ import "./globals.css"; // Tailwind/DaisyUI base styles
 import { AuthProvider } from "../context/AuthContext";
 import Navigation from "../components/Navigation";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/Whatsapp";
 
 export const metadata = {
   title: "Up skill digital agency | Digital Services",
@@ -25,6 +26,12 @@ export default function RootLayout({ children }) {
           <Navigation />
           <main className="min-h-screen w-full bg-slate-50">{children}</main>
           <Footer />
+          {/* WhatsApp Button - will be fixed to bottom right */}
+
+          <WhatsAppButton
+            phoneNumber="8801640571091" // Replace with your actual WhatsApp number
+            message="Hello! I'm interested in your digital services."
+          />
         </AuthProvider>
       </body>
     </html>

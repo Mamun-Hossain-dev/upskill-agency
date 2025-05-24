@@ -93,7 +93,7 @@ export default function OurApproach() {
           animate={isInView ? "visible" : "hidden"}
           custom={0.2}
         >
-          <h3 className="text-xl font-medium text-indigo-600 mb-4">
+          <h3 className="text-xl md:text-2xl  text-gray-800 font-bold mb-4">
             Data-Driven Strategy with Creative Excellence
           </h3>
           <p className="text-gray-700 mb-8">
