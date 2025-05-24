@@ -16,7 +16,6 @@ export const metadata = {
   keywords:
     "web development, digital marketing, SEO, digital agency, Bangladesh",
   authors: [{ name: "UpSkill Digital Agency" }],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: "UpSkill Digital Agency | Digital Services",
     description:
@@ -24,6 +23,11 @@ export const metadata = {
     type: "website",
     locale: "en_US",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {

@@ -1,19 +1,16 @@
+// components/ClientLayout.jsx
 "use client";
 
-import Navigation from "@/components/Navigation";
-import WhatsAppButton from "@/components/Whatsapp";
-import Footer from "@/components/Footer";
+import { AuthProvider } from "@/context/AuthContext"; // adjust the path
+import Navigation from "./Navigation"; // or wherever your nav is
+import Footer from "./Footer";
 
 export default function ClientLayout({ children }) {
   return (
-    <>
+    <AuthProvider>
       <Navigation />
-      <main className="min-h-screen w-full bg-slate-50">{children}</main>
+      {children}
       <Footer />
-      <WhatsAppButton
-        phoneNumber="8801640571091"
-        message="Hello! I'm interested in your digital services. Can you help me?"
-      />
-    </>
+    </AuthProvider>
   );
 }
