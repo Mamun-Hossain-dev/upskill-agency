@@ -1,5 +1,7 @@
-// app/layout.tsx
+// app/layout.js
 import { Poppins } from "next/font/google";
+import "./globals.css";
+import ClientLayout from "@/components/ClientLayout"; // safe: it's dynamic client-only
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -7,32 +9,28 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-import "./globals.css"; // Tailwind/DaisyUI base styles
-import { AuthProvider } from "../context/AuthContext";
-import Navigation from "../components/Navigation";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/Whatsapp";
-
 export const metadata = {
-  title: "Up skill digital agency | Digital Services",
-  description: "Professional web development, digital marketing, and more.",
+  title: "UpSkill Digital Agency | Digital Services",
+  description:
+    "Professional web development, digital marketing, SEO, and digital solutions to grow your business online.",
+  keywords:
+    "web development, digital marketing, SEO, digital agency, Bangladesh",
+  authors: [{ name: "UpSkill Digital Agency" }],
+  viewport: "width=device-width, initial-scale=1",
+  openGraph: {
+    title: "UpSkill Digital Agency | Digital Services",
+    description:
+      "Professional web development, digital marketing, SEO, and digital solutions to grow your business online.",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="light">
-      <body className="bg-slate-200">
-        <AuthProvider>
-          <Navigation />
-          <main className="min-h-screen w-full bg-slate-50">{children}</main>
-          <Footer />
-          {/* WhatsApp Button - will be fixed to bottom right */}
-
-          <WhatsAppButton
-            phoneNumber="8801640571091" // Replace with your actual WhatsApp number
-            message="Hello! I'm interested in your digital services."
-          />
-        </AuthProvider>
+    <html lang="en" data-theme="light" className={poppins.variable}>
+      <body className={`${poppins.className} bg-slate-200 antialiased`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
