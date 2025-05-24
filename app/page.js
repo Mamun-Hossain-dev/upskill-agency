@@ -3,6 +3,7 @@ import ContactForm from "@/components/ContactForm";
 import OurApproach from "@/components/DataDriven";
 import HeroSection from "@/components/HeroSection";
 import OurServices from "@/components/OurSevices";
+import TestimonialsSlider from "@/components/Testomonials";
 import TrustedSection from "@/components/TrustedSection";
 
 export default function HomePage() {
@@ -23,10 +24,13 @@ export default function HomePage() {
       {/* about us */}
       <AboutUs />
 
+      {/* reviews sections */}
+      <TestimonialsSlider />
+
       {/* Other content with constrained width */}
-      <section className="max-w-4xl mx-auto w-full px-4 py-12">
-        {/* <ContactForm /> */}
-      </section>
+      {/* <section className="max-w-4xl mx-auto w-full px-4 py-12">
+      </section> */}
+      {/* <ContactForm /> */}
     </>
   );
 }
