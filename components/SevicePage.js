@@ -40,19 +40,35 @@ const serviceIcons = {
   star: Star,
 };
 
-// Custom hook for intersection observer
+// Custom hook for intersection observer with mobile-friendly settings
 const useIntersectionObserver = (threshold = 0.1) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    // Use different thresholds for mobile vs desktop
+    const mobileThreshold = 0.05; // Lower threshold for mobile
+    const desktopThreshold = threshold;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold }
+      {
+        threshold: isMobile ? mobileThreshold : desktopThreshold,
+        rootMargin: isMobile ? "50px 0px" : "0px 0px", // Earlier trigger on mobile
+      }
     );
 
     if (ref.current) {
@@ -60,13 +76,14 @@ const useIntersectionObserver = (threshold = 0.1) => {
     }
 
     return () => {
+      window.removeEventListener("resize", checkMobile);
       if (ref.current) {
         observer.unobserve(ref.current);
       }
     };
-  }, [threshold]);
+  }, [threshold, isMobile]);
 
-  return [ref, isVisible];
+  return [ref, isVisible, isMobile];
 };
 
 // Function to get icon based on service title or icon path
@@ -216,25 +233,37 @@ const getServiceFeatures = (service) => {
   ];
 };
 
-// Animated Service Card Component
+// Animated Service Card Component with mobile fixes
 const AnimatedServiceCard = ({ service, index }) => {
-  const [ref, isVisible] = useIntersectionObserver(0.1);
+  const [ref, isVisible, isMobile] = useIntersectionObserver(0.1);
   const IconComponent = getServiceIcon(service);
   const category = getServiceCategory(service);
   const features = getServiceFeatures(service);
 
+  // Reduce animation complexity on mobile
+  const animationDelay = isMobile ? Math.min(index * 100, 300) : index * 150;
+  const baseClasses =
+    "card bg-base-100 shadow-lg hover:shadow-2xl transition-all cursor-pointer overflow-hidden group";
+
+  // Simplified mobile animations
+  const mobileAnimationClasses = isVisible
+    ? "opacity-100 translate-y-0"
+    : "opacity-0 translate-y-4";
+
+  const desktopAnimationClasses = isVisible
+    ? "opacity-100 translate-y-0 scale-100"
+    : "opacity-0 translate-y-12 scale-95";
+
   return (
     <div
       ref={ref}
-      className={`card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-700 transform cursor-pointer overflow-hidden group
-        ${
-          isVisible
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-12 scale-95"
-        }
-      `}
+      className={`${baseClasses} transform duration-700 ${
+        isMobile ? mobileAnimationClasses : desktopAnimationClasses
+      }`}
       style={{
-        transitionDelay: `${index * 150}ms`,
+        transitionDelay: `${animationDelay}ms`,
+        // Ensure visibility on mobile even if animation fails
+        opacity: isMobile && !isVisible ? 0.8 : undefined,
       }}
     >
       {/* Service Image with Overlay Effect */}
@@ -243,15 +272,22 @@ const AnimatedServiceCard = ({ service, index }) => {
           <img
             src={service.image}
             alt={service.title}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </figure>
       )}
 
       <div className="card-body relative">
-        {/* Floating Icon with Bounce Animation */}
-        <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mb-4 group-hover:scale-110 transition-all duration-300 group-hover:rotate-12">
+        {/* Floating Icon with reduced mobile animation */}
+        <div
+          className={`flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mb-4 transition-all duration-300 ${
+            isMobile
+              ? "group-hover:scale-105"
+              : "group-hover:scale-110 group-hover:rotate-12"
+          }`}
+        >
           <IconComponent
             className="text-primary transition-all duration-300 group-hover:scale-110"
             size={32}
@@ -263,8 +299,8 @@ const AnimatedServiceCard = ({ service, index }) => {
           {category}
         </div>
 
-        {/* Service Title with Gradient Hover */}
-        <h3 className="card-title text-xl mb-2 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary group-hover:bg-clip-text group-hover:text-transparent">
+        {/* Service Title */}
+        <h3 className="card-title text-xl mb-2 transition-all duration-300 group-hover:text-primary">
           {service.title}
         </h3>
 
@@ -273,7 +309,7 @@ const AnimatedServiceCard = ({ service, index }) => {
           {service.description}
         </p>
 
-        {/* Animated Features List */}
+        {/* Features List with simplified mobile animations */}
         <div className="mb-4">
           <h4 className="font-medium mb-2 transition-colors duration-300 group-hover:text-primary">
             Key Features:
@@ -285,12 +321,14 @@ const AnimatedServiceCard = ({ service, index }) => {
                 className={`flex items-center text-sm text-base-content/70 transition-all duration-500 ${
                   isVisible
                     ? "opacity-100 translate-x-0"
+                    : isMobile
+                    ? "opacity-70 translate-x-0" // Fallback for mobile
                     : "opacity-0 -translate-x-4"
                 }`}
                 style={{
-                  transitionDelay: `${
-                    index * 150 + featureIndex * 100 + 200
-                  }ms`,
+                  transitionDelay: isMobile
+                    ? `${animationDelay + 100}ms`
+                    : `${animationDelay + featureIndex * 100 + 200}ms`,
                 }}
               >
                 <Check
@@ -305,9 +343,13 @@ const AnimatedServiceCard = ({ service, index }) => {
           </ul>
         </div>
 
-        {/* Animated Action Button */}
+        {/* Action Button with reduced mobile animation */}
         <div className="card-actions justify-center">
-          <button className="btn btn-primary w-full group-hover:btn-accent transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-lg overflow-hidden relative">
+          <button
+            className={`btn btn-primary w-full group-hover:btn-accent transition-all duration-300 transform group-hover:shadow-lg overflow-hidden relative ${
+              isMobile ? "group-hover:scale-102" : "group-hover:scale-105"
+            }`}
+          >
             <span className="relative z-10 flex items-center justify-center">
               Learn More
               <ArrowRight
@@ -320,33 +362,47 @@ const AnimatedServiceCard = ({ service, index }) => {
           </button>
         </div>
 
-        {/* Subtle background pattern on hover */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-full transform translate-x-16 -translate-y-16 transition-all duration-700 group-hover:scale-150 group-hover:opacity-50"></div>
+        {/* Reduced background pattern effect on mobile */}
+        <div
+          className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-full transform translate-x-16 -translate-y-16 transition-all duration-700 ${
+            isMobile
+              ? "group-hover:scale-125 group-hover:opacity-30"
+              : "group-hover:scale-150 group-hover:opacity-50"
+          }`}
+        ></div>
       </div>
     </div>
   );
 };
 
-// Animated Section Component
+// Animated Section Component with mobile optimization
 const AnimatedSection = ({ children, className = "", delay = 0 }) => {
-  const [ref, isVisible] = useIntersectionObserver(0.1);
+  const [ref, isVisible, isMobile] = useIntersectionObserver(0.1);
 
   return (
     <div
       ref={ref}
       className={`transition-all duration-1000 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : isMobile
+          ? "opacity-90 translate-y-2"
+          : "opacity-0 translate-y-8"
       } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{
+        transitionDelay: isMobile ? `${Math.min(delay, 200)}ms` : `${delay}ms`,
+      }}
     >
       {children}
     </div>
   );
 };
 
-// Animated Why Choose Us Card
+// Animated Why Choose Us Card with mobile fixes
 const AnimatedFeatureCard = ({ icon: Icon, title, description, index }) => {
-  const [ref, isVisible] = useIntersectionObserver(0.1);
+  const [ref, isVisible, isMobile] = useIntersectionObserver(0.1);
+
+  const animationDelay = isMobile ? Math.min(index * 150, 300) : index * 200;
 
   return (
     <div
@@ -354,11 +410,19 @@ const AnimatedFeatureCard = ({ icon: Icon, title, description, index }) => {
       className={`text-center group cursor-pointer transition-all duration-700 transform ${
         isVisible
           ? "opacity-100 translate-y-0 scale-100"
+          : isMobile
+          ? "opacity-80 translate-y-2 scale-100" // Fallback for mobile
           : "opacity-0 translate-y-8 scale-95"
       }`}
-      style={{ transitionDelay: `${index * 200}ms` }}
+      style={{ transitionDelay: `${animationDelay}ms` }}
     >
-      <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-lg group-hover:bg-gradient-to-br group-hover:from-primary/30 group-hover:to-secondary/20">
+      <div
+        className={`flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mx-auto mb-4 transition-all duration-500 group-hover:shadow-lg group-hover:bg-gradient-to-br group-hover:from-primary/30 group-hover:to-secondary/20 ${
+          isMobile
+            ? "group-hover:scale-110"
+            : "group-hover:scale-125 group-hover:rotate-12"
+        }`}
+      >
         <Icon
           className="text-primary transition-all duration-300 group-hover:scale-110"
           size={32}
@@ -539,7 +603,7 @@ export default function ServicesPage() {
             "linear-gradient(rgba(106, 17, 203, 0.4), rgba(138, 43, 226, 0.6)), url('/images/servicesImage/banner4.jpg')",
         }}
       >
-        {/* Animated floating elements */}
+        {/* Simplified animated floating elements for mobile */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-pulse opacity-20"></div>
           <div
@@ -572,8 +636,8 @@ export default function ServicesPage() {
       {/* Services Section */}
       <AnimatedSection className="py-16">
         <div className="container mx-auto px-4">
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Services Grid with better mobile spacing */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, idx) => (
               <AnimatedServiceCard
                 key={`${service.id}-${idx}`}
@@ -625,7 +689,7 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             <AnimatedFeatureCard
               icon={Star}
               title="Quality Assured"
@@ -654,7 +718,7 @@ export default function ServicesPage() {
         </div>
       </AnimatedSection>
 
-      {/* Add custom CSS for additional animations */}
+      {/* Enhanced CSS for better mobile performance */}
       <style jsx>{`
         @keyframes fade-in-up {
           from {
@@ -691,6 +755,38 @@ export default function ServicesPage() {
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+          .group-hover\:scale-102:hover {
+            transform: scale(1.02);
+          }
+
+          /* Reduce animation complexity on mobile */
+          .card {
+            will-change: opacity, transform;
+          }
+
+          /* Ensure cards are visible even with failed animations */
+          .card {
+            min-height: auto;
+            opacity: 1;
+          }
+
+          /* Fallback visibility for mobile */
+          @supports not (transform: translateY(0)) {
+            .card {
+              opacity: 1 !important;
+              transform: none !important;
+            }
+          }
+        }
+
+        /* Performance optimizations */
+        .card {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
         }
       `}</style>
     </div>
