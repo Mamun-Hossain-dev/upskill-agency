@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   BadgeCheck,
   Lightbulb,
@@ -15,11 +16,33 @@ import {
 } from "lucide-react";
 import AboutUs from "@/components/AboutUs";
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const staggerContainer = {
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
 export default function AboutSection() {
   return (
     <section className="container mx-auto mb-8">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 bg-gradient-to-br from-primary/90 to-base-100 py-8">
+      <motion.div
+        className="container mx-auto px-4"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        <motion.div
+          className="text-center mb-16 bg-gradient-to-br from-primary/90 to-base-100 py-8"
+          variants={fadeInUp}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-indigo-800">
             About Our Agency
           </h2>
@@ -27,55 +50,56 @@ export default function AboutSection() {
             We are a team of passionate creators, strategists, and developers
             dedicated to crafting impactful digital experiences.
           </p>
-        </div>
+        </motion.div>
 
         <AboutUs />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-20 mt-16">
-          <div className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <BadgeCheck className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Trusted Expertise</h3>
-            <p className="text-base-content/70">
-              Years of experience delivering exceptional solutions across
-              industries.
-            </p>
-          </div>
 
-          <div className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <Lightbulb className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Innovative Thinking</h3>
-            <p className="text-base-content/70">
-              We embrace creativity to solve problems and unlock opportunities.
-            </p>
-          </div>
+        {/* Highlights */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-20 mt-16"
+          variants={staggerContainer}
+        >
+          {[
+            {
+              icon: <BadgeCheck className="text-primary" size={32} />,
+              title: "Trusted Expertise",
+              desc: "Years of experience delivering exceptional solutions across industries.",
+            },
+            {
+              icon: <Lightbulb className="text-primary" size={32} />,
+              title: "Innovative Thinking",
+              desc: "We embrace creativity to solve problems and unlock opportunities.",
+            },
+            {
+              icon: <Globe className="text-primary" size={32} />,
+              title: "Global Impact",
+              desc: "We serve clients around the world with scalable and smart digital solutions.",
+            },
+            {
+              icon: <Heart className="text-primary" size={32} />,
+              title: "Client-Centric",
+              desc: "Your vision is our mission. We put your goals at the center of our strategy.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow"
+              variants={fadeInUp}
+            >
+              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
+                {item.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+              <p className="text-base-content/70">{item.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <div className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <Globe className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Global Impact</h3>
-            <p className="text-base-content/70">
-              We serve clients around the world with scalable and smart digital
-              solutions.
-            </p>
-          </div>
-
-          <div className="text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <Heart className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Client-Centric</h3>
-            <p className="text-base-content/70">
-              Your vision is our mission. We put your goals at the center of our
-              strategy.
-            </p>
-          </div>
-        </div>
-
-        <div className="text-center mb-12 hidden lg:block">
+        {/* Why Choose Us */}
+        <motion.div
+          className="text-center mb-12 hidden lg:block"
+          variants={fadeInUp}
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Why Choose Our Services?
           </h2>
@@ -83,92 +107,82 @@ export default function AboutSection() {
             We deliver exceptional results through our proven approach and
             dedicated expertise.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          <div className="text-center">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <Star className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Quality Assured</h3>
-            <p className="text-base-content/70">
-              We maintain the highest standards in all our deliverables.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <TrendingUp className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Proven Results</h3>
-            <p className="text-base-content/70">
-              Track record of successful projects and satisfied clients.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <Settings className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Custom Solutions</h3>
-            <p className="text-base-content/70">
-              Tailored approaches to meet your unique business requirements.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-              <ArrowRight className="text-primary" size={32} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
-            <p className="text-base-content/70">
-              Timely execution without compromising quality or impact.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <div className="flex flex-col items-center gap-2">
-              <div className="bg-indigo-100 px-4 py-3 rounded-full">
-                <Target className="text-indigo-700 " />
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          variants={staggerContainer}
+        >
+          {[
+            {
+              icon: <Star className="text-primary" size={32} />,
+              title: "Quality Assured",
+              desc: "We maintain the highest standards in all our deliverables.",
+            },
+            {
+              icon: <TrendingUp className="text-primary" size={32} />,
+              title: "Proven Results",
+              desc: "Track record of successful projects and satisfied clients.",
+            },
+            {
+              icon: <Settings className="text-primary" size={32} />,
+              title: "Custom Solutions",
+              desc: "Tailored approaches to meet your unique business requirements.",
+            },
+            {
+              icon: <ArrowRight className="text-primary" size={32} />,
+              title: "Fast Delivery",
+              desc: "Timely execution without compromising quality or impact.",
+            },
+          ].map((item, i) => (
+            <motion.div key={i} className="text-center" variants={fadeInUp}>
+              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
+                {item.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-            </div>
-            <p className="text-base-content/70">
-              To empower businesses with innovative digital solutions that drive
-              growth, engagement, and lasting value.
-            </p>
-          </div>
+              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+              <p className="text-base-content/70">{item.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <div className="flex flex-col items-center gap-2">
-              <div className="bg-indigo-100 px-4 py-3 rounded-full">
-                <Eye className="text-indigo-700 " />
+        {/* Mission, Vision, Values */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-10"
+          variants={staggerContainer}
+        >
+          {[
+            {
+              icon: <Target className="text-indigo-700" />,
+              title: "Our Mission",
+              desc: "To empower businesses with innovative digital solutions that drive growth, engagement, and lasting value.",
+            },
+            {
+              icon: <Eye className="text-indigo-700" />,
+              title: "Our Vision",
+              desc: "To be the most trusted creative partner for businesses seeking exceptional digital experiences that transform their brand and market position.",
+            },
+            {
+              icon: <Heart className="text-indigo-700" />,
+              title: "Our Values",
+              desc: "Excellence, Innovation, Integrity, Collaboration, and Client Success are the core principles that guide everything we do.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all"
+              variants={fadeInUp}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="bg-indigo-100 px-4 py-3 rounded-full">
+                  {item.icon}
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-            </div>
-            <p className="text-base-content/70">
-              To be the most trusted creative partner for businesses seeking
-              exceptional digital experiences that transform their brand and
-              market position.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <div className="flex flex-col items-center gap-2">
-              <div className="bg-indigo-100 px-4 py-3 rounded-full">
-                <Heart className="text-indigo-700 " />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Our Values</h3>
-            </div>
-            <p className="text-base-content/70">
-              Excellence, Innovation, Integrity, Collaboration, and Client
-              Success are the core principles that guide everything we do.
-            </p>
-          </div>
-        </div>
-      </div>
+              <p className="text-base-content/70">{item.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

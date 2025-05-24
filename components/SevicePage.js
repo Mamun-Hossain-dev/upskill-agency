@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Code,
   Palette,
@@ -38,6 +38,35 @@ const serviceIcons = {
   trending: TrendingUp,
   settings: Settings,
   star: Star,
+};
+
+// Custom hook for intersection observer
+const useIntersectionObserver = (threshold = 0.1) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [threshold]);
+
+  return [ref, isVisible];
 };
 
 // Function to get icon based on service title or icon path
@@ -187,6 +216,164 @@ const getServiceFeatures = (service) => {
   ];
 };
 
+// Animated Service Card Component
+const AnimatedServiceCard = ({ service, index }) => {
+  const [ref, isVisible] = useIntersectionObserver(0.1);
+  const IconComponent = getServiceIcon(service);
+  const category = getServiceCategory(service);
+  const features = getServiceFeatures(service);
+
+  return (
+    <div
+      ref={ref}
+      className={`card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-700 transform cursor-pointer overflow-hidden group
+        ${
+          isVisible
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 translate-y-12 scale-95"
+        }
+      `}
+      style={{
+        transitionDelay: `${index * 150}ms`,
+      }}
+    >
+      {/* Service Image with Overlay Effect */}
+      {service.image && (
+        <figure className="h-48 overflow-hidden relative">
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </figure>
+      )}
+
+      <div className="card-body relative">
+        {/* Floating Icon with Bounce Animation */}
+        <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mb-4 group-hover:scale-110 transition-all duration-300 group-hover:rotate-12">
+          <IconComponent
+            className="text-primary transition-all duration-300 group-hover:scale-110"
+            size={32}
+          />
+        </div>
+
+        {/* Animated Category Badge */}
+        <div className="badge badge-primary badge-outline mb-2 transform transition-all duration-300 group-hover:scale-105 group-hover:badge-primary group-hover:text-white">
+          {category}
+        </div>
+
+        {/* Service Title with Gradient Hover */}
+        <h3 className="card-title text-xl mb-2 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary group-hover:bg-clip-text group-hover:text-transparent">
+          {service.title}
+        </h3>
+
+        {/* Service Description */}
+        <p className="text-base-content/70 mb-4 line-clamp-3 transition-colors duration-300 group-hover:text-base-content/90">
+          {service.description}
+        </p>
+
+        {/* Animated Features List */}
+        <div className="mb-4">
+          <h4 className="font-medium mb-2 transition-colors duration-300 group-hover:text-primary">
+            Key Features:
+          </h4>
+          <ul className="space-y-1">
+            {features.slice(0, 3).map((feature, featureIndex) => (
+              <li
+                key={featureIndex}
+                className={`flex items-center text-sm text-base-content/70 transition-all duration-500 ${
+                  isVisible
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-4"
+                }`}
+                style={{
+                  transitionDelay: `${
+                    index * 150 + featureIndex * 100 + 200
+                  }ms`,
+                }}
+              >
+                <Check
+                  size={16}
+                  className="text-success mr-2 flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:text-primary"
+                />
+                <span className="transition-colors duration-300 group-hover:text-base-content">
+                  {feature}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Animated Action Button */}
+        <div className="card-actions justify-center">
+          <button className="btn btn-primary w-full group-hover:btn-accent transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-lg overflow-hidden relative">
+            <span className="relative z-10 flex items-center justify-center">
+              Learn More
+              <ArrowRight
+                size={16}
+                className="ml-1 transition-all duration-300 group-hover:translate-x-1"
+              />
+            </span>
+            {/* Button hover effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-accent to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+
+        {/* Subtle background pattern on hover */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-full transform translate-x-16 -translate-y-16 transition-all duration-700 group-hover:scale-150 group-hover:opacity-50"></div>
+      </div>
+    </div>
+  );
+};
+
+// Animated Section Component
+const AnimatedSection = ({ children, className = "", delay = 0 }) => {
+  const [ref, isVisible] = useIntersectionObserver(0.1);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      } ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
+
+// Animated Why Choose Us Card
+const AnimatedFeatureCard = ({ icon: Icon, title, description, index }) => {
+  const [ref, isVisible] = useIntersectionObserver(0.1);
+
+  return (
+    <div
+      ref={ref}
+      className={`text-center group cursor-pointer transition-all duration-700 transform ${
+        isVisible
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 translate-y-8 scale-95"
+      }`}
+      style={{ transitionDelay: `${index * 200}ms` }}
+    >
+      <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-lg group-hover:bg-gradient-to-br group-hover:from-primary/30 group-hover:to-secondary/20">
+        <Icon
+          className="text-primary transition-all duration-300 group-hover:scale-110"
+          size={32}
+        />
+      </div>
+      <h3 className="text-xl font-bold mb-2 transition-all duration-300 group-hover:text-primary group-hover:scale-105">
+        {title}
+      </h3>
+      <p className="text-base-content/70 transition-all duration-300 group-hover:text-base-content/90">
+        {description}
+      </p>
+    </div>
+  );
+};
+
 export default function ServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -319,12 +506,12 @@ export default function ServicesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-base-100">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <div className="loading loading-spinner loading-lg"></div>
-            <p className="mt-4 text-base-content/70">Loading services...</p>
-          </div>
+      <div className="min-h-screen bg-base-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="loading loading-spinner loading-lg text-primary animate-pulse"></div>
+          <p className="mt-4 text-base-content/70 animate-fade-in">
+            Loading services...
+          </p>
         </div>
       </div>
     );
@@ -332,12 +519,10 @@ export default function ServicesPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-base-100">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <div className="alert alert-error max-w-md mx-auto">
-              <span>{error}</span>
-            </div>
+      <div className="min-h-screen bg-base-100 flex items-center justify-center">
+        <div className="text-center animate-fade-in">
+          <div className="alert alert-error max-w-md mx-auto transform transition-all duration-500 hover:scale-105">
+            <span>{error}</span>
           </div>
         </div>
       </div>
@@ -345,109 +530,70 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-base-100 text-gray-950">
-      {/* Hero Section with Background Image */}
+    <div className="min-h-screen bg-base-100 text-gray-950 overflow-x-hidden">
+      {/* Hero Section with Animated Background */}
       <section
-        className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat"
+        className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage:
             "linear-gradient(rgba(106, 17, 203, 0.4), rgba(138, 43, 226, 0.6)), url('/images/servicesImage/banner4.jpg')",
         }}
       >
+        {/* Animated floating elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-pulse opacity-20"></div>
+          <div
+            className="absolute top-3/4 right-1/4 w-24 h-24 bg-white/10 rounded-full animate-pulse opacity-30"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/10 rounded-full animate-pulse opacity-25"
+            style={{ animationDelay: "2s" }}
+          ></div>
+        </div>
+
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white">
+          <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white animate-fade-in-up">
             Our Services
           </h1>
-          <p className="text-lg md:text-xl text-white max-w-3xl mx-auto">
+          <p
+            className="text-lg md:text-xl text-white max-w-3xl mx-auto animate-fade-in-up"
+            style={{ animationDelay: "0.3s" }}
+          >
             Comprehensive digital solutions to help your business grow and
             succeed in the modern world
           </p>
         </div>
+
+        {/* Animated wave effect at bottom */}
+        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-base-100 to-transparent"></div>
       </section>
 
       {/* Services Section */}
-      <section className="py-16">
+      <AnimatedSection className="py-16">
         <div className="container mx-auto px-4">
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, idx) => {
-              const IconComponent = getServiceIcon(service);
-              const category = getServiceCategory(service);
-              const features = getServiceFeatures(service);
-
-              return (
-                <div
-                  key={`${service.id}-${idx}`}
-                  className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-102 cursor-pointer overflow-hidden"
-                >
-                  {/* Service Image */}
-                  {service.image && (
-                    <figure className="h-48 overflow-hidden">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                      />
-                    </figure>
-                  )}
-
-                  <div className="card-body">
-                    {/* Service Icon */}
-                    <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                      <IconComponent className="text-primary" size={32} />
-                    </div>
-
-                    {/* Service Category Badge */}
-                    <div className="badge badge-primary badge-outline mb-2">
-                      {category}
-                    </div>
-
-                    {/* Service Title */}
-                    <h3 className="card-title text-xl mb-2">{service.title}</h3>
-
-                    {/* Service Description */}
-                    <p className="text-base-content/70 mb-4 line-clamp-3">
-                      {service.description}
-                    </p>
-
-                    {/* Service Features */}
-                    <div className="mb-4">
-                      <h4 className="font-medium mb-2">Key Features:</h4>
-                      <ul className="space-y-1">
-                        {features.slice(0, 3).map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-center text-sm text-base-content/70"
-                          >
-                            <Check
-                              size={16}
-                              className="text-success mr-2 flex-shrink-0"
-                            />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="card-actions justify-center">
-                      <button className="btn btn-primary w-full">
-                        Learn More
-                        <ArrowRight size={16} className="ml-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {services.map((service, idx) => (
+              <AnimatedServiceCard
+                key={`${service.id}-${idx}`}
+                service={service}
+                index={idx}
+              />
+            ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      {/* CTA Section */}
-      <section className="bg-base-200 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      {/* CTA Section with Gradient Animation */}
+      <AnimatedSection className="bg-gradient-to-br from-base-200 via-base-200 to-base-300 py-16 relative overflow-hidden">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 animate-pulse"></div>
+        </div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 transition-all duration-500 hover:scale-105">
             Ready to Get Started?
           </h2>
           <p className="text-xl text-base-content/70 mb-8 max-w-2xl mx-auto">
@@ -455,18 +601,22 @@ export default function ServicesPage() {
             business needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn btn-primary btn-lg">
-              Contact Us Today
+            <Link
+              href="/contact"
+              className="btn btn-primary btn-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl hover:btn-accent group overflow-hidden relative"
+            >
+              <span className="relative z-10">Contact Us Today</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Why Choose Us Section */}
-      <section className="py-16">
+      <AnimatedSection className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 transition-all duration-500 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent">
               Why Choose Our Services?
             </h2>
             <p className="text-xl text-base-content/70 max-w-2xl mx-auto">
@@ -476,48 +626,73 @@ export default function ServicesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-                <Star className="text-primary" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Quality Assured</h3>
-              <p className="text-base-content/70">
-                We maintain the highest standards in all our deliverables.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-                <TrendingUp className="text-primary" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Proven Results</h3>
-              <p className="text-base-content/70">
-                Track record of successful projects and satisfied clients.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-                <Settings className="text-primary" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Custom Solutions</h3>
-              <p className="text-base-content/70">
-                Tailored approaches to meet your unique business requirements.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4">
-                <ArrowRight className="text-primary" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
-              <p className="text-base-content/70">
-                Efficient processes to deliver your projects on time.
-              </p>
-            </div>
+            <AnimatedFeatureCard
+              icon={Star}
+              title="Quality Assured"
+              description="We maintain the highest standards in all our deliverables."
+              index={0}
+            />
+            <AnimatedFeatureCard
+              icon={TrendingUp}
+              title="Proven Results"
+              description="Track record of successful projects and satisfied clients."
+              index={1}
+            />
+            <AnimatedFeatureCard
+              icon={Settings}
+              title="Custom Solutions"
+              description="Tailored approaches to meet your unique business requirements."
+              index={2}
+            />
+            <AnimatedFeatureCard
+              icon={ArrowRight}
+              title="Fast Delivery"
+              description="Efficient processes to deliver your projects on time."
+              index={3}
+            />
           </div>
         </div>
-      </section>
+      </AnimatedSection>
+
+      {/* Add custom CSS for additional animations */}
+      <style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 1s ease-out forwards;
+          opacity: 0;
+        }
+
+        .animate-fade-in {
+          animation: fade-in 1s ease-out forwards;
+          opacity: 0;
+        }
+
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   );
 }

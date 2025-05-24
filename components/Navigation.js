@@ -25,7 +25,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="navbar bg-base-100 shadow-md sticky top-0 z-50 text-gray-700 px-2 rounded-md">
+    <nav className="navbar bg-base-100 shadow-md sticky top-0 z-50 text-gray-700 px-2 md:px-5 lg:px-8 rounded-md">
       <div className="navbar-start">
         {/* Mobile menu button */}
         <div className="dropdown lg:hidden">

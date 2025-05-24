@@ -17,6 +17,8 @@ import {
   FaCogs,
   FaChartLine,
 } from "react-icons/fa";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const data = [
   { name: "Q1", valueGrowth: 4000, performanceScore: 2400 },
@@ -51,16 +53,46 @@ const approachSteps = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay,
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  }),
+};
+
 export default function OurApproach() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
-    <section className="px-4 py-12 md:py-20 bg-slate-50 container mx-auto">
-      <h2 className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center">
+    <section
+      ref={ref}
+      className="px-4 py-12 md:py-20 bg-slate-50 container mx-auto"
+    >
+      <motion.h2
+        className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center"
+        variants={fadeUp}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
         Our Approach
-      </h2>
+      </motion.h2>
 
       <div className="flex items-center justify-between gap-10 md:justify-between mt-8 flex-wrap md:flex-nowrap">
         {/* Left Column */}
-        <div>
+        <motion.div
+          className="w-full md:w-1/2"
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          custom={0.2}
+        >
           <h3 className="text-xl font-medium text-indigo-600 mb-4">
             Data-Driven Strategy with Creative Excellence
           </h3>
@@ -71,19 +103,29 @@ export default function OurApproach() {
           </p>
           <div className="space-y-4">
             {approachSteps.map((step, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-sm"
+                variants={fadeUp}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                custom={0.3 + index * 0.1}
               >
                 {step.icon}
                 <p className="text-gray-800 font-medium">{step.title}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Chart */}
-        <div className="bg-white p-6 rounded-lg shadow-md w-full h-[500px]">
+        <motion.div
+          className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md h-[500px]"
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          custom={0.5}
+        >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={data}
@@ -94,31 +136,27 @@ export default function OurApproach() {
               <YAxis />
               <Tooltip />
               <Legend verticalAlign="bottom" height={36} />
-
-              {/* Value Growth: Indigo Area + Line */}
               <Area
                 type="monotone"
                 dataKey="valueGrowth"
-                stroke="#6366f1" // dark indigo
-                fill="#c7d2fe" // light indigo
+                stroke="#6366f1"
+                fill="#c7d2fe"
                 strokeWidth={3}
                 dot={false}
                 name="Value Growth"
               />
-
-              {/* Performance Score: Pink/Red Area + Line */}
               <Area
                 type="monotone"
                 dataKey="performanceScore"
-                stroke="#ec4899" // rose-500
-                fill="#fbcfe8" // rose-200
+                stroke="#ec4899"
+                fill="#fbcfe8"
                 strokeWidth={3}
                 dot={false}
                 name="Performance Score"
               />
             </AreaChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

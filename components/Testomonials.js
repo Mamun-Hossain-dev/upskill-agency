@@ -204,57 +204,53 @@ const TestimonialsSlider = () => {
     setIsAutoPlaying(false);
   };
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, i) => (
+  const renderStars = (rating) =>
+    Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-5 h-5 ${
+        className={`w-5 h-5 transition-all ${
           i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
         }`}
       />
     ));
-  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-16 bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="max-w-6xl mx-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-blue-50">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-indigo-800 mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
           What Our Clients Say
         </h2>
-        <p className="text-x text-gray-600 font-medium max-w-2xl mx-auto">
-          {`Don't just take our word for it. Here's what our clients have to say
-          about working with us.`}
+        <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
+          {`Don't just take our word for it. Here's what our clients have to say about working with us.`}
         </p>
       </div>
 
       <div className="relative">
-        <div className="overflow-hidden rounded-2xl shadow-2xl bg-white">
+        <div className="overflow-hidden rounded-3xl shadow-2xl bg-white transition-shadow duration-300">
           <div
-            className="flex transition-transform duration-[1000ms] ease-in-out"
+            className="flex transition-all duration-[1200ms] ease-in-out transform-gpu"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="w-full flex-shrink-0">
-                <div className="p-8 md:p-12 lg:p-16">
-                  <div className="flex flex-col lg:flex-row items-center gap-8">
+                <div className="p-10 md:p-14 lg:p-20">
+                  <div className="flex flex-col lg:flex-row items-center gap-10">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-24 h-24 lg:w-32 lg:h-32 rounded-full object-cover shadow-lg border-4 border-white"
+                      className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-white hover:scale-105 transition-transform"
                     />
                     <div className="flex-1 text-center lg:text-left">
                       <div className="flex justify-center lg:justify-start mb-4">
                         {renderStars(testimonial.rating)}
                       </div>
-                      <blockquote className="text-lg md:text-xl  mb-6 italic leading-relaxed">
-                        {testimonial.review}
+                      <blockquote className="text-xl leading-relaxed text-slate-700 italic mb-6 transition-opacity duration-700">
+                        “{testimonial.review}”
                       </blockquote>
-                      <h4 className="text-xl font-bold text-indigo-800 mb-1">
+                      <h4 className="text-xl font-bold text-indigo-800">
                         {testimonial.name}
                       </h4>
-                      <p className="text-gray-600-500">
-                        {testimonial.position}
-                      </p>
+                      <p className="text-gray-500">{testimonial.position}</p>
                       <p className="text-slate-600 font-semibold">
                         {testimonial.company}
                       </p>
@@ -266,26 +262,28 @@ const TestimonialsSlider = () => {
           </div>
         </div>
 
+        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-md hover:shadow-xl transition-all duration-300"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-md hover:shadow-xl transition-all duration-300"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
       </div>
 
+      {/* Pagination Dots */}
       <div className="flex justify-center mt-8 space-x-2">
         {testimonials.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
               currentIndex === index
                 ? "bg-indigo-600 scale-125"
                 : "bg-gray-300 hover:bg-gray-400"
@@ -294,10 +292,11 @@ const TestimonialsSlider = () => {
         ))}
       </div>
 
+      {/* Auto-play Toggle */}
       <div className="text-center mt-6">
         <button
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="text-sm text-indigo-500 hover:text-indigo-700 transition-colors"
+          className="text-sm text-indigo-500 hover:text-indigo-700 transition-all duration-200"
         >
           {isAutoPlaying ? "⏸️ Pause Auto-play" : "▶️ Resume Auto-play"}
         </button>

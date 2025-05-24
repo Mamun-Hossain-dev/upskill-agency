@@ -1,13 +1,34 @@
+"use client";
+
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.8, 0.25, 1], // smooth cubic bezier easing
+    },
+  },
+};
 
 const AboutUs = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-16 px-3 md:px-4 bg-white container mx-auto">
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ staggerChildren: 0.3 }}
+      className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-16 px-3 md:px-4 bg-white container mx-auto"
+    >
       {/* Left Column */}
-      <div className="space-y-6">
-        <h2 className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center ">
+      <motion.div variants={fadeUp} className="space-y-6">
+        <h2 className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center">
           About us
         </h2>
 
@@ -22,7 +43,7 @@ const AboutUs = () => {
         <p className="text-gray-600 text-base leading-relaxed">
           Our diverse team brings together expertise in design, development, and
           marketing to deliver integrated solutions that help our clients stand
-          out in todays competitive digital landscape.
+          out in today’s competitive digital landscape.
         </p>
 
         {/* Stats */}
@@ -42,15 +63,18 @@ const AboutUs = () => {
         </div>
 
         <Link
-          href={"/about"}
-          className="mt-6 px-6 py-3 bg-indigo-700 text-white rounded-xl hover:bg-indigo-800 transition"
+          href="/about"
+          className="inline-block mt-6 px-6 py-3 bg-indigo-700 text-white rounded-xl hover:bg-indigo-800 transition"
         >
           Learn More About Us
         </Link>
-      </div>
+      </motion.div>
 
       {/* Right Column */}
-      <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-lg">
+      <motion.div
+        variants={fadeUp}
+        className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-lg"
+      >
         <Image
           src="/images/servicesImage/team.jpg"
           alt="About us"
@@ -69,8 +93,8 @@ const AboutUs = () => {
             Rated 5.0/5.0 from over 180 client reviews
           </span>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 
