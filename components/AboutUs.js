@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const AboutUs = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-16 px-2 md:px-4 bg-white container mx-auto">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-16 px-3 md:px-4 bg-white container mx-auto">
       {/* Left Column */}
       <div className="space-y-6">
         <h2 className="text-lg font-semibold inline bg-indigo-200 px-3 py-2 rounded text-indigo-700 text-center ">

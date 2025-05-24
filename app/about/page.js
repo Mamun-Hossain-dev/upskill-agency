@@ -10,12 +10,14 @@ import {
   TrendingUp,
   Settings,
   ArrowRight,
+  Target,
+  Eye,
 } from "lucide-react";
 import AboutUs from "@/components/AboutUs";
 
 export default function AboutSection() {
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto mb-8">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 bg-gradient-to-br from-primary/90 to-base-100 py-8">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-indigo-800">
@@ -127,7 +129,12 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+            <div className="flex flex-col items-center gap-2">
+              <div className="bg-indigo-100 px-4 py-3 rounded-full">
+                <Target className="text-indigo-700 " />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+            </div>
             <p className="text-base-content/70">
               To empower businesses with innovative digital solutions that drive
               growth, engagement, and lasting value.
@@ -135,7 +142,12 @@ export default function AboutSection() {
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+            <div className="flex flex-col items-center gap-2">
+              <div className="bg-indigo-100 px-4 py-3 rounded-full">
+                <Eye className="text-indigo-700 " />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+            </div>
             <p className="text-base-content/70">
               To be the most trusted creative partner for businesses seeking
               exceptional digital experiences that transform their brand and
@@ -144,7 +156,12 @@ export default function AboutSection() {
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-md text-center border-2 border-white hover:border-indigo-700 transition-all">
-            <h3 className="text-2xl font-bold mb-4">Our Values</h3>
+            <div className="flex flex-col items-center gap-2">
+              <div className="bg-indigo-100 px-4 py-3 rounded-full">
+                <Heart className="text-indigo-700 " />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Our Values</h3>
+            </div>
             <p className="text-base-content/70">
               Excellence, Innovation, Integrity, Collaboration, and Client
               Success are the core principles that guide everything we do.

@@ -78,6 +78,7 @@ export default function HeroSection() {
                     <i key={i} className="fa-solid fa-star"></i>
                   ))}
                 <span className="ml-2 text-white text-xs sm:text-sm">
+                  <span className="mr-1 text-yellow-400">★★★★★</span>
                   5.0 (180+ reviews)
                 </span>
               </div>

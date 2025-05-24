@@ -64,14 +64,14 @@ export default function OurServices() {
         {limitedServices.map((service) => (
           <div
             key={service.id}
-            className="bg-slate-50 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
+            className="bg-slate-50 rounded-xl shadow-md hover:shadow-lg  overflow-hidden hover:scale-103 transition-all cursor-none"
           >
             <img
               src={service.image}
               alt={service.title}
               className="w-full h-48 object-cover"
             />
-            <div className="p-6">
+            <div className="p-6 border-[1px]  border-white hover:border-indigo-600">
               <div className="flex items-center gap-2 mb-3">
                 {iconMap[service.title] || (
                   <Code className="w-6 h-6 text-indigo-600" />
@@ -88,7 +88,7 @@ export default function OurServices() {
 
       <div className="mt-10 text-center">
         <Link href="/services">
-          <button className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+          <button className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition cursor-pointer">
             Show More <ArrowRight className="w-4 h-4" />
           </button>
         </Link>

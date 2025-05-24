@@ -351,7 +351,7 @@ export default function ServicesPage() {
         className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('/images/servicesImage/banner4.jpg')",
+            "linear-gradient(rgba(106, 17, 203, 0.4), rgba(138, 43, 226, 0.6)), url('/images/servicesImage/banner4.jpg')",
         }}
       >
         <div className="container mx-auto px-4 text-center relative z-10">
