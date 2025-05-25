@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 const WhatsAppButton = ({
-  phoneNumber = "8801640571091", // Replace with your WhatsApp number (with country code, no + or spaces)
+  phoneNumber = "8801619599140", // Replace with your WhatsApp number (with country code, no + or spaces)
   message = "Hello! I'm interested in your services.",
   position = "bottom-6 right-6",
 }) => {
