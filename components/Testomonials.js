@@ -35,7 +35,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "They helped us launch a sleek event registration system with real-time analytics. It streamlined our process and impressed attendees.",
-      image: "/images/users/user3.jpg",
+      image: "/images/users/user4.jpg",
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "From SEO to responsive design, they covered every detail. Our career fair attendance doubled thanks to the improved site visibility.",
-      image: "/images/users/user4.jpg",
+      image: "/images/users/user3.jpg",
     },
     {
       id: 5,
@@ -85,7 +85,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "Reliable, creative, and efficient. We appreciated their collaborative approach and attention to detail.",
-      image: "/images/users/user6.jpg", // duplicate
+      image: "/images/users/user3.jpg", // duplicate
     },
     {
       id: 9,
@@ -125,7 +125,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "We were impressed with their ability to handle our LMS platform. The UX improvements alone boosted course completion rates by 70%.",
-      image: "/images/users/user11.webp",
+      image: "/images/users/user6.jpg",
     },
     {
       id: 13,
@@ -135,7 +135,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "Timely delivery, creative design, and strategic thinking. They were a true extension of our in-house team.",
-      image: "/images/users/user2.jpg", // duplicate
+      image: "/images/users/user11.webp", // duplicate
     },
     {
       id: 14,
@@ -145,7 +145,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "As a developer, I appreciated the clean code and thoughtful design systems they implemented. Collaboration was smooth and efficient.",
-      image: "/images/users/user4.jpg", // duplicate
+      image: "/images/users/user9.jpg", // duplicate
     },
     {
       id: 15,
@@ -155,7 +155,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "Their campaign ideas were refreshingly innovative. We saw a spike in engagement metrics and customer retention after launching.",
-      image: "/images/users/user9.jpg", // duplicate
+      image: "/images/users/user2.jpg", // duplicate
     },
   ];
 

@@ -27,7 +27,7 @@ export default function ContactSection() {
   const [errors, setErrors] = useState({});
 
   // Replace with your Web3Forms access key
-  const WEB3FORMS_ACCESS_KEY = "a844a83a-bad5-4e25-9666-ee83cf9fe852";
+  const WEB3FORMS_ACCESS_KEY = "f28ee327-2198-4f06-85f3-fafa4bd47ecb";
 
   const validateForm = () => {
     const newErrors = {};
