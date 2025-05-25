@@ -15,8 +15,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "Working with this team was a game-changer. Their ability to understand our goals and translate them into a functional, engaging website exceeded all expectations.",
-      image:
-        "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user1.jpg",
     },
     {
       id: 2,
@@ -26,8 +25,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "Our online training portal is now faster, more user-friendly, and mobile-optimized. We've received great feedback from participants and instructors alike.",
-      image:
-        "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user2.jpg",
     },
     {
       id: 3,
@@ -37,8 +35,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "They helped us launch a sleek event registration system with real-time analytics. It streamlined our process and impressed attendees.",
-      image:
-        "https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user3.jpg",
     },
     {
       id: 4,
@@ -48,8 +45,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "From SEO to responsive design, they covered every detail. Our career fair attendance doubled thanks to the improved site visibility.",
-      image:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user4.jpg",
     },
     {
       id: 5,
@@ -59,8 +55,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "We needed a scalable LMS with custom features. They delivered exactly that. Support has been top-notch too.",
-      image:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user5.jpg",
     },
     {
       id: 6,
@@ -70,8 +65,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "Highly professional and responsive. The booking system and integrations work flawlessly across all devices.",
-      image:
-        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user6.jpg",
     },
     {
       id: 7,
@@ -81,8 +75,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "They simplified our event logistics with a powerful dashboard. Our team productivity increased significantly.",
-      image:
-        "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user7.jpg",
     },
     {
       id: 8,
@@ -92,8 +85,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "Reliable, creative, and efficient. We appreciated their collaborative approach and attention to detail.",
-      image:
-        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user6.jpg", // duplicate
     },
     {
       id: 9,
@@ -103,8 +95,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "The custom portal they built saved us countless hours of admin work. Our users love the experience too.",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user8.jpg",
     },
     {
       id: 10,
@@ -114,8 +105,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "From planning to deployment, they were with us every step. The interactive agenda and real-time updates wowed our attendees.",
-      image:
-        "https://images.unsplash.com/photo-1603415526960-f7e0328f9b90?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user9.jpg",
     },
     {
       id: 11,
@@ -125,8 +115,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "They brought our vision to life with such precision. The website reflects our brand perfectly, and client inquiries have significantly increased.",
-      image:
-        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user10.avif",
     },
     {
       id: 12,
@@ -136,8 +125,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "We were impressed with their ability to handle our LMS platform. The UX improvements alone boosted course completion rates by 70%.",
-      image:
-        "https://images.unsplash.com/photo-1546456073-6712f79251bb?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user11.webp",
     },
     {
       id: 13,
@@ -147,8 +135,7 @@ const TestimonialsSlider = () => {
       rating: 4,
       review:
         "Timely delivery, creative design, and strategic thinking. They were a true extension of our in-house team.",
-      image:
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user2.jpg", // duplicate
     },
     {
       id: 14,
@@ -158,8 +145,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "As a developer, I appreciated the clean code and thoughtful design systems they implemented. Collaboration was smooth and efficient.",
-      image:
-        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user4.jpg", // duplicate
     },
     {
       id: 15,
@@ -169,8 +155,7 @@ const TestimonialsSlider = () => {
       rating: 5,
       review:
         "Their campaign ideas were refreshingly innovative. We saw a spike in engagement metrics and customer retention after launching.",
-      image:
-        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop&crop=face",
+      image: "/images/users/user9.jpg", // duplicate
     },
   ];
 
@@ -238,7 +223,7 @@ const TestimonialsSlider = () => {
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-white hover:scale-105 transition-transform"
+                      className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-violet-500 hover:scale-105 transition-transform"
                     />
                     <div className="flex-1 text-center lg:text-left">
                       <div className="flex justify-center lg:justify-start mb-4">

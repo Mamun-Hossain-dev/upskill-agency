@@ -193,7 +193,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-3 py-1 md:px-8 md:py-5 shadow backdrop-blur-sm transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-3 py-2 md:px-8 md:py-5 shadow backdrop-blur-sm transition-colors"
               >
                 View Our Work
               </Link>
@@ -206,23 +206,25 @@ export default function HeroSection() {
             variants={itemVariants}
           >
             <div className="flex -space-x-3 sm:-space-x-4">
-              {[21, 22, 23, 24].map((seq, index) => (
-                <motion.span
-                  key={seq}
-                  className="relative flex shrink-0 overflow-hidden rounded-full border-2 border-indigo-900 w-9 h-9 sm:w-10 sm:h-10 cursor-pointer"
-                  variants={avatarVariants}
-                  custom={index}
-                  whileHover="hover"
-                >
-                  <Image
-                    src={`https://readdy.ai/api/search-image?query=Professional%20headshot%20portrait%20with%20neutral%20expression%20against%20simple%20gradient%20background%2C%20clean%20corporate%20style&width=100&height=100&seq=${seq}&orientation=squarish`}
-                    alt={`Client ${seq}`}
-                    width={40}
-                    height={40}
-                    className="aspect-square object-cover"
-                  />
-                </motion.span>
-              ))}
+              {["user1.jpg", "user2.jpg", "user3.jpg", "user4.jpg"].map(
+                (seq, index) => (
+                  <motion.span
+                    key={seq}
+                    className="relative flex shrink-0 overflow-hidden rounded-full border-2 border-indigo-300 w-9 h-9 sm:w-10 sm:h-10 cursor-pointer"
+                    variants={avatarVariants}
+                    custom={index}
+                    whileHover="hover"
+                  >
+                    <Image
+                      src={`/images/users/${seq}`}
+                      alt={`Client ${seq}`}
+                      width={40}
+                      height={40}
+                      className="aspect-square object-cover"
+                    />
+                  </motion.span>
+                )
+              )}
             </div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
