@@ -24,9 +24,7 @@ export default function Footer() {
     { name: "About Us", href: "/about" },
     { name: "Our Services", href: "/services" },
     { name: "Portfolio", href: "/portfolio" },
-    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
-    { name: "Get Quote", href: "/quote" },
   ];
 
   return (
@@ -38,7 +36,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">
-                <span className="text-primary">Your</span>Agency
+                <span className="text-primary">UpSkill Digital </span> Agency
               </span>
             </div>
             <p className="text-base-content/70 text-sm">
@@ -50,13 +48,17 @@ export default function Footer() {
             {/* Social Media Links */}
             <div className="flex gap-3">
               <a
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.facebook.com/share/15bVsy2EFN/"
                 className="btn btn-ghost btn-sm btn-circle hover:bg-primary hover:text-primary-content"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
               </a>
               <a
+                target="_blank"
+                rel="noopener noreferrer"
                 href="#"
                 className="btn btn-ghost btn-sm btn-circle hover:bg-primary hover:text-primary-content"
                 aria-label="Twitter"
@@ -64,14 +66,18 @@ export default function Footer() {
                 <Twitter size={18} />
               </a>
               <a
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.instagram.com/upskilldigitalagency/?igsh=cXNrN2UyZnBkbXhp#"
                 className="btn btn-ghost btn-sm btn-circle hover:bg-primary hover:text-primary-content"
                 aria-label="Instagram"
               >
                 <Instagram size={18} />
               </a>
               <a
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.linkedin.com/company/upskill-it-institute-digital-agency/posts/?feedView=all"
                 className="btn btn-ghost btn-sm btn-circle hover:bg-primary hover:text-primary-content"
                 aria-label="LinkedIn"
               >
@@ -123,10 +129,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm font-medium">Email</p>
                   <a
-                    href="mailto:info@youragency.com"
+                    href="mailto:Upskilldigitalagency@gmail.com"
                     className="text-base-content/70 hover:text-primary text-sm transition-colors"
                   >
-                    info@youragency.com
+                    Upskilldigitalagency@gmail.com
                   </a>
                 </div>
               </div>
@@ -139,7 +145,7 @@ export default function Footer() {
                     href="tel:+15551234567"
                     className="text-base-content/70 hover:text-primary text-sm transition-colors"
                   >
-                    +1 (555) 123-4567
+                    +8801619599140
                   </a>
                 </div>
               </div>
@@ -149,11 +155,11 @@ export default function Footer() {
                 <div>
                   <p className="text-sm font-medium">Address</p>
                   <p className="text-base-content/70 text-sm">
-                    123 Business St.
+                    78 Faidabad transmitter moor
                     <br />
-                    Suite 100
+                    Uttarkhan, Dhaka-1230
                     <br />
-                    City, State 12345
+                    Bangladesh
                   </p>
                 </div>
               </div>
@@ -187,24 +193,24 @@ export default function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-base-content/70 text-sm">
-              © {currentYear} YourAgency. All rights reserved.
+              © {currentYear} UpSkill Digital Agency. All rights reserved.
             </p>
 
             <div className="flex gap-6">
               <Link
-                href="/privacy"
+                href="#"
                 className="text-base-content/70 hover:text-primary text-sm transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/terms"
+                href="#"
                 className="text-base-content/70 hover:text-primary text-sm transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
-                href="/sitemap"
+                href="#"
                 className="text-base-content/70 hover:text-primary text-sm transition-colors"
               >
                 Sitemap

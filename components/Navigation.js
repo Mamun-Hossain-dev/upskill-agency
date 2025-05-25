@@ -101,18 +101,18 @@ export default function Navigation() {
                 </div>
 
                 {/* Contact Info */}
-                <div className="px-6 py-4 bg-gray-50 mt-auto">
+                <div className="px-2 py-4 bg-gray-50 mt-auto">
                   <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
                     Get in Touch
                   </h4>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3 text-sm text-gray-600">
                       <Phone size={16} className="text-primary" />
-                      <span>+880 1640-571091</span>
+                      <span>+880 1619599140</span>
                     </div>
                     <div className="flex items-center space-x-3 text-sm text-gray-600">
                       <Mail size={16} className="text-primary" />
-                      <span>hello@upskilldigital.com</span>
+                      <span>Upskilldigitalagency@gmail.com</span>
                     </div>
                     <div className="flex items-center space-x-3 text-sm text-gray-600">
                       <MapPin size={16} className="text-primary" />
@@ -162,7 +162,7 @@ export default function Navigation() {
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Phone size={16} className="text-primary" />
-            <span className="font-medium">+880 1640-571091</span>
+            <span className="font-medium">+880 1619599140</span>
           </div>
           <Link
             href="/contact"

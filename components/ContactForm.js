@@ -125,24 +125,23 @@ export default function ContactSection() {
   const socialLinks = [
     {
       icon: Facebook,
-      href: "#",
+      href: "https://www.facebook.com/share/15bVsy2EFN/",
       label: "Facebook",
       color: "hover:text-blue-600",
     },
     { icon: Twitter, href: "#", label: "Twitter", color: "hover:text-sky-500" },
     {
       icon: Instagram,
-      href: "#",
+      href: "https://www.instagram.com/upskilldigitalagency/?igsh=cXNrN2UyZnBkbXhp#",
       label: "Instagram",
       color: "hover:text-pink-500",
     },
     {
       icon: Linkedin,
-      href: "#",
+      href: "https://www.linkedin.com/company/upskill-it-institute-digital-agency/posts/?feedView=all",
       label: "LinkedIn",
       color: "hover:text-blue-700",
     },
-    { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-800" },
   ];
 
   return (
@@ -167,20 +166,21 @@ export default function ContactSection() {
                 {
                   icon: <Mail className="text-indigo-600" size={24} />,
                   title: "Email Us",
-                  detail: "hello@creativeedge.com",
-                  href: "mailto:hello@creativeedge.com",
+                  detail: "Upskilldigitalagency@gmail.com",
+                  href: "mailto:Upskilldigitalagency@gmail.com",
                 },
                 {
                   icon: <Phone className="text-indigo-500" size={24} />,
                   title: "Call Us",
-                  detail: "+1 (555) 123-4567",
-                  href: "tel:+15551234567",
+                  detail: "+880 1619599140",
+                  href: "tel:+880 1619599140",
                 },
                 {
                   icon: <MapPin className="text-indigo-600" size={24} />,
                   title: "Visit Us",
-                  detail: "123 Creative Street, Design District, CA 94103",
-                  href: "https://maps.google.com",
+                  detail:
+                    "78 Faidabad transmitter moor, Design Uttarkhan, Dhaka-1230",
+                  href: "https://www.google.com/maps/place/Upskill+It+Institute/@23.8799222,90.4142166,20z/data=!4m6!3m5!1s0x3755c50aa9cdbcf9:0x754341fb9fa3aee5!8m2!3d23.8799284!4d90.4144107!16s%2Fg%2F11t84rxfvw?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D",
                 },
               ].map((contact, index) => (
                 <div
@@ -202,6 +202,8 @@ export default function ContactSection() {
                   return (
                     <a
                       key={index}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href={social.href}
                       aria-label={social.label}
                       className={`w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 ${social.color} transition-all duration-300 hover:scale-115 hover:-translate-y-2 hover:shadow-lg`}
