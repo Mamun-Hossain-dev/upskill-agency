@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   User,
@@ -26,6 +25,9 @@ export default function ContactSection() {
     description: "",
   });
   const [errors, setErrors] = useState({});
+
+  // Replace with your Web3Forms access key
+  const WEB3FORMS_ACCESS_KEY = "a844a83a-bad5-4e25-9666-ee83cf9fe852";
 
   const validateForm = () => {
     const newErrors = {};
@@ -70,20 +72,54 @@ export default function ContactSection() {
     setIsLoading(true);
     setMessage({ type: "", text: "" });
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("access_key", WEB3FORMS_ACCESS_KEY);
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("service", formData.service || "Not specified");
+      formDataToSend.append("message", formData.description);
+      formDataToSend.append(
+        "subject",
+        `New Contact Form Submission from ${formData.name}`
+      );
+
+      // Optional: Add redirect URL (Web3Forms will redirect after submission)
+      // formDataToSend.append("redirect", "https://your-website.com/thank-you");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setMessage({
+          type: "success",
+          text: "Thank you for your message! We'll get back to you soon.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          service: "",
+          description: "",
+        });
+      } else {
+        setMessage({
+          type: "error",
+          text: result.message || "Something went wrong. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
       setMessage({
-        type: "success",
-        text: "Thank you for your message! We'll get back to you soon.",
+        type: "error",
+        text: "Failed to send message. Please check your connection and try again.",
       });
-      setFormData({
-        name: "",
-        email: "",
-        service: "",
-        description: "",
-      });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const socialLinks = [
@@ -109,94 +145,24 @@ export default function ContactSection() {
     { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-800" },
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const slideInLeft = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const slideInRight = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column - Contact Info */}
-          <motion.div className="space-y-8" variants={slideInLeft}>
-            <motion.div variants={itemVariants}>
-              <motion.h1
-                className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              >
+          <div className="space-y-8 opacity-0 animate-slideInLeft">
+            <div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
                 Lets Start a{" "}
-                <motion.span
-                  className="text-indigo-700"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  Conversation
-                </motion.span>
-              </motion.h1>
-              <motion.p
-                className="text-lg text-gray-600 leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
+                <span className="text-indigo-700">Conversation</span>
+              </h1>
+              <p className="text-lg text-gray-600 leading-relaxed">
                 Ready to discuss your project? Fill out the form and our team
                 will get back to you within 24 hours.
-              </motion.p>
-            </motion.div>
+              </p>
+            </div>
 
-            <motion.div className="space-y-6" variants={containerVariants}>
+            <div className="space-y-6">
               {[
                 {
                   icon: <Mail className="text-indigo-600" size={24} />,
@@ -217,126 +183,78 @@ export default function ContactSection() {
                   href: "https://maps.google.com",
                 },
               ].map((contact, index) => (
-                <motion.div
+                <div
                   key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ duration: 0.2 }}
+                  className="hover:scale-105 hover:translate-x-1 transition-all duration-200"
                 >
                   <ContactItem {...contact} />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
 
-            <motion.div variants={itemVariants}>
+            <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Follow Us
               </h3>
-              <motion.div
-                className="flex space-x-4"
-                variants={containerVariants}
-              >
+              <div className="flex space-x-4">
                 {socialLinks.map((social, index) => {
                   const IconComponent = social.icon;
                   return (
-                    <motion.a
+                    <a
                       key={index}
                       href={social.href}
                       aria-label={social.label}
-                      className={`w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 ${social.color} transition-colors duration-300`}
-                      variants={itemVariants}
-                      whileHover={{
-                        scale: 1.15,
-                        y: -8,
-                        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
+                      className={`w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 ${social.color} transition-all duration-300 hover:scale-115 hover:-translate-y-2 hover:shadow-lg`}
                     >
-                      <motion.div
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <IconComponent size={20} />
-                      </motion.div>
-                    </motion.a>
+                      <IconComponent size={20} />
+                    </a>
                   );
                 })}
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
-            <motion.div
-              className="bg-white rounded-2xl p-6 shadow-lg"
-              variants={itemVariants}
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:scale-102 hover:shadow-xl transition-all duration-300">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Business Hours
               </h3>
-              <motion.div
-                className="space-y-2 text-gray-600"
-                variants={containerVariants}
-              >
+              <div className="space-y-2 text-gray-600">
                 {[
                   { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
                   { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
                   { day: "Sunday", hours: "Closed" },
                 ].map((schedule, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    className="flex justify-between"
-                    variants={itemVariants}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
+                    className="flex justify-between hover:translate-x-1 transition-transform duration-200"
                   >
                     <span>{schedule.day}</span>
                     <span>{schedule.hours}</span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </div>
 
           {/* Right Column - Contact Form */}
-          <motion.div
-            className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10"
-            variants={slideInRight}
-            whileHover={{
-              boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.h2
-              className="text-3xl font-bold text-gray-900 mb-6"
-              variants={itemVariants}
-            >
+          <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10 opacity-0 animate-slideInRight hover:shadow-3xl transition-shadow duration-300">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
               Contact Us
-            </motion.h2>
+            </h2>
 
-            <AnimatePresence>
-              {message.text && (
-                <motion.div
-                  className={`mb-6 p-4 rounded-lg ${
-                    message.type === "success"
-                      ? "bg-green-50 text-green-800 border border-green-200"
-                      : "bg-red-50 text-red-800 border border-red-200"
-                  }`}
-                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {message.text}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {message.text && (
+              <div
+                className={`mb-6 p-4 rounded-lg transform transition-all duration-300 ${
+                  message.type === "success"
+                    ? "bg-green-50 text-green-800 border border-green-200 scale-100"
+                    : "bg-red-50 text-red-800 border border-red-200 scale-100"
+                }`}
+              >
+                {message.text}
+              </div>
+            )}
 
-            <motion.div className="space-y-6" variants={containerVariants}>
-              <motion.div variants={itemVariants}>
+            <div className="space-y-6">
+              <div>
                 <AnimatedInputField
                   icon={<User size={18} />}
                   label="Full Name"
@@ -347,9 +265,9 @@ export default function ContactSection() {
                   error={errors.name}
                   required
                 />
-              </motion.div>
+              </div>
 
-              <motion.div variants={itemVariants}>
+              <div>
                 <AnimatedInputField
                   icon={<Mail size={18} />}
                   label="Email Address"
@@ -361,18 +279,14 @@ export default function ContactSection() {
                   error={errors.email}
                   required
                 />
-              </motion.div>
+              </div>
 
-              <motion.div className="space-y-2" variants={itemVariants}>
+              <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Service Interest{" "}
                   <span className="text-gray-400 ml-1">(Optional)</span>
                 </label>
-                <motion.div
-                  className="relative"
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="relative hover:scale-102 transition-transform duration-200">
                   <select
                     name="service"
                     value={formData.service}
@@ -392,18 +306,14 @@ export default function ContactSection() {
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                     size={18}
                   />
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
 
-              <motion.div className="space-y-2" variants={itemVariants}>
+              <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Description <span className="text-red-500">*</span>
                 </label>
-                <motion.div
-                  className="relative"
-                  whileFocus={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="relative hover:scale-101 transition-transform duration-200">
                   <textarea
                     name="description"
                     value={formData.description}
@@ -418,79 +328,114 @@ export default function ContactSection() {
                     className="absolute left-3 top-4 text-gray-400"
                     size={18}
                   />
-                </motion.div>
-                <AnimatePresence>
-                  {errors.description && (
-                    <motion.p
-                      className="text-sm text-red-600"
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {errors.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                </div>
+                {errors.description && (
+                  <p className="text-sm text-red-600 opacity-0 animate-fadeIn">
+                    {errors.description}
+                  </p>
+                )}
                 <p className="text-sm text-gray-500">
                   The more details you provide, the better we can assist you.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.button
+              <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full bg-indigo-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-800 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed duration-200 flex items-center justify-center space-x-2"
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
+                className="w-full bg-indigo-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-800 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed duration-200 flex items-center justify-center space-x-2 hover:scale-102 active:scale-98 transition-all"
               >
-                <AnimatePresence mode="wait">
-                  {isLoading ? (
-                    <motion.div
-                      key="loading"
-                      className="flex items-center space-x-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <motion.div
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 1,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                      />
-                      <span>Sending...</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="send"
-                      className="flex items-center space-x-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Send size={20} />
-                      </motion.div>
-                      <span>Send Message</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            </motion.div>
-          </motion.div>
+                {isLoading ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Sending...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center space-x-2">
+                    <Send
+                      size={20}
+                      className="hover:translate-x-1 transition-transform duration-200"
+                    />
+                    <span>Send Message</span>
+                  </div>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </motion.div>
+
+      <style jsx>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-slideInLeft {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slideInRight {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.2s ease-out forwards;
+        }
+
+        .hover\\:scale-102:hover {
+          transform: scale(1.02);
+        }
+
+        .hover\\:scale-105:hover {
+          transform: scale(1.05);
+        }
+
+        .hover\\:scale-115:hover {
+          transform: scale(1.15);
+        }
+
+        .hover\\:scale-101:hover {
+          transform: scale(1.01);
+        }
+
+        .active\\:scale-98:active {
+          transform: scale(0.98);
+        }
+
+        .hover\\:shadow-3xl:hover {
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+      `}</style>
+    </div>
   );
 }
 
@@ -508,11 +453,7 @@ function AnimatedInputField({
         {label} {required && <span className="text-red-500">*</span>}
         {optional && <span className="text-gray-400 ml-1">(Optional)</span>}
       </label>
-      <motion.div
-        className="relative"
-        whileFocus={{ scale: 1.02 }}
-        transition={{ duration: 0.2 }}
-      >
+      <div className="relative hover:scale-102 transition-transform duration-200">
         <input
           className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 ${
             error ? "border-red-300" : "border-gray-300"
@@ -524,53 +465,35 @@ function AnimatedInputField({
             {icon}
           </div>
         )}
-      </motion.div>
-      <AnimatePresence>
-        {error && (
-          <motion.p
-            className="text-sm text-red-600"
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.2 }}
-          >
-            {error}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      </div>
+      {error && (
+        <p className="text-sm text-red-600 opacity-0 animate-fadeIn">{error}</p>
+      )}
     </div>
   );
 }
 
 function ContactItem({ icon, title, detail, href }) {
   const content = (
-    <motion.div
-      className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm transition-shadow duration-200"
-      whileHover={{
-        boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-        y: -2,
-      }}
-      transition={{ duration: 0.2 }}
-    >
-      <motion.div
-        className="flex-shrink-0 mt-1"
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        transition={{ duration: 0.2 }}
-      >
+    <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+      <div className="flex-shrink-0 mt-1 hover:scale-110 hover:rotate-3 transition-transform duration-200">
         {icon}
-      </motion.div>
+      </div>
       <div>
         <h3 className="font-semibold text-gray-900">{title}</h3>
         <p className="text-gray-600 mt-1">{detail}</p>
       </div>
-    </motion.div>
+    </div>
   );
 
   if (href) {
     return (
-      <motion.a href={href} className="block" whileTap={{ scale: 0.98 }}>
+      <a
+        href={href}
+        className="block active:scale-98 transition-transform duration-200"
+      >
         {content}
-      </motion.a>
+      </a>
     );
   }
 

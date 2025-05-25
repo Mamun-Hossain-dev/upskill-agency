@@ -192,7 +192,7 @@ export default function HeroSection() {
               whileTap="tap"
             >
               <Link
-                href="/work"
+                href="/portfolio"
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 text-base md:text-lg px-3 py-2 md:px-8 md:py-5 shadow backdrop-blur-sm transition-colors"
               >
                 View Our Work
