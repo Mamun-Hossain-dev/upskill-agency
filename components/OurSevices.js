@@ -17,45 +17,28 @@ import {
   Code,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import services from "@/data/services.json";
+import { useEffect, useState } from "react";
 
 // Icon map with consistent sizing
 const iconMap = {
-  "Digital Marketing": (
-    <BarChart3 className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "Social Media Advertising": (
-    <Target className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "Social Media Management": (
-    <Users className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "Google Ads (Search, Display & YouTube)": (
-    <Search className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
+  "Digital Marketing": <BarChart3 className="icon-style" />,
+  "Social Media Advertising": <Target className="icon-style" />,
+  "Social Media Management": <Users className="icon-style" />,
+  "Google Ads (Search, Display & YouTube)": <Search className="icon-style" />,
   "Facebook Campaign with Pixel & Conversion API": (
-    <Settings className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
+    <Settings className="icon-style" />
   ),
-  "B2B Lead Generation": (
-    <Globe className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "Instagram Organic Growth": (
-    <Star className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "YouTube SEO & Organic Video Promotion": (
-    <Play className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
+  "B2B Lead Generation": <Globe className="icon-style" />,
+  "Instagram Organic Growth": <Star className="icon-style" />,
+  "YouTube SEO & Organic Video Promotion": <Play className="icon-style" />,
   "Website SEO (Search Engine Optimization)": (
-    <TrendingUp className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
+    <TrendingUp className="icon-style" />
   ),
-  "Website Creation & Design": (
-    <Palette className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
-  "Video Editing": (
-    <Camera className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-  ),
+  "Website Creation & Design": <Palette className="icon-style" />,
+  "Video Editing": <Camera className="icon-style" />,
 };
 
+// Framer Motion variants
 const sectionVariants = {
   hidden: { opacity: 0, y: 60 },
   show: {
@@ -77,7 +60,14 @@ const cardVariants = {
 };
 
 export default function OurServices() {
-  const limitedServices = services.slice(0, 3); // Show only first 3
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/services.json")
+      .then((res) => res.json())
+      .then((data) => setServices(data.slice(0, 3)))
+      .catch((err) => console.error("Error loading services:", err));
+  }, []);
 
   return (
     <motion.section
@@ -113,7 +103,7 @@ export default function OurServices() {
         className="mt-12 grid gap-8 md:gap-12 lg:gap-24 sm:grid-cols-2 md:grid-cols-3 max-w-7xl mx-auto px-2 md:px-6"
         variants={sectionVariants}
       >
-        {limitedServices.map((service) => (
+        {services.map((service) => (
           <motion.div
             key={service.id}
             variants={cardVariants}
@@ -127,9 +117,7 @@ export default function OurServices() {
             />
             <div className="p-6 border-[1px] border-white hover:border-indigo-600 transition-colors duration-200">
               <div className="flex items-center gap-2 mb-3">
-                {iconMap[service.title] || (
-                  <Code className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600" />
-                )}
+                {iconMap[service.title] || <Code className="icon-style" />}
                 <h3 className="text-lg font-semibold text-indigo-700">
                   {service.title}
                 </h3>
@@ -150,3 +138,6 @@ export default function OurServices() {
     </motion.section>
   );
 }
+
+// Tailwind icon class (reuse for consistent styling)
+const iconStyle = "w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600";

@@ -449,27 +449,18 @@ export default function ServicesPage() {
 
   const fetchServices = async () => {
     try {
-      // Try to fetch from public directory first
-      let response = await fetch("/api/services");
-
-      // Fallback to public directory
-      if (!response.ok) {
-        response = await fetch("/services.json");
-      }
-
-      // Another fallback to data directory in public
-      if (!response.ok) {
-        response = await fetch("/data/services.json");
-      }
+      const response = await fetch("/data/services.json");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch services");
+        throw new Error(`Failed to fetch: ${response.status}`);
       }
 
       const data = await response.json();
       setServices(data);
     } catch (error) {
-      // Fallback to hardcoded data if all fetches fail
+      console.warn("Using fallback services data due to error:", error.message);
+
+      // Fallback data
       const fallbackServices = [
         {
           id: "1",
@@ -562,7 +553,6 @@ export default function ServicesPage() {
       ];
 
       setServices(fallbackServices);
-      console.warn("Using fallback services data:", error);
     } finally {
       setLoading(false);
     }

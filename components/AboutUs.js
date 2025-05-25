@@ -79,8 +79,10 @@ const AboutUs = () => {
           src="/images/servicesImage/team.jpg"
           alt="About us"
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
         />
+
         {/* Rating badge */}
         <div className="absolute bottom-6 left-7 right-1 bg-white bg-opacity-90 p-4 rounded-xl shadow flex items-center gap-1">
           {[...Array(5)].map((_, index) => (
