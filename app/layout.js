@@ -24,6 +24,11 @@ export const metadata = {
     type: "website",
     locale: "en_US",
   },
+  icons: {
+    icon: "/favicon.png", // or /logo.png if you didn't rename
+    shortcut: "/favicon.png",
+    apple: "/favicon.png", // optional for Apple devices
+  },
 };
 
 export const viewport = {

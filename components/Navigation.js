@@ -27,9 +27,9 @@ export default function Navigation() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <X size={24} className="text-gray-700" />
+              <X size={28} className="text-gray-700" />
             ) : (
-              <Menu size={24} className="text-gray-700" />
+              <Menu size={28} className="text-gray-700" />
             )}
           </button>
 
@@ -47,11 +47,15 @@ export default function Navigation() {
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary/80 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">U</span>
+                    <div className="w-14 h-14 rounded-lg flex items-center justify-center">
+                      {/* <span className="text-white font-bold text-lg">U</span> */}
+                      <img
+                        className="rounded-full"
+                        src="/images/users/logo.png"
+                      />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-gray-800">
+                      <h3 className="font-bold text-lg text-indigo-600">
                         UpSkill
                       </h3>
                       <p className="text-sm text-gray-500">Digital Agency</p>
@@ -127,11 +131,11 @@ export default function Navigation() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3 ml-3 lg:ml-0">
-          <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary/80 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">U</span>
+          <div className="w-12 h-12  rounded-lg flex items-center justify-center">
+            <img className="rounded-full" src="/images/users/logo.png" />
           </div>
           <div className="hidden sm:block">
-            <h1 className="text-xl font-bold text-gray-800">UpSkill</h1>
+            <h1 className="text-xl font-bold text-indigo-700">UpSkill</h1>
             <p className="text-xs text-gray-500 -mt-1">Digital Agency</p>
           </div>
         </Link>
@@ -175,7 +179,7 @@ export default function Navigation() {
 
       {/* Mobile CTA Button */}
       <div className="navbar-end lg:hidden">
-        <Link href="/contact" className="btn btn-primary btn-sm shadow-lg">
+        <Link href="/contact" className="btn btn-primary btn-md shadow-lg">
           Contact
         </Link>
       </div>
