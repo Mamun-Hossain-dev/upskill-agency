@@ -1,4 +1,5 @@
 "use client";
+
 import {
   ExternalLink,
   Eye,
@@ -13,8 +14,9 @@ import {
   ShoppingCart,
   Camera,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
-// Icon mapping for project categories
+// Icon mapping
 const categoryIcons = {
   "Digital Marketing": TrendingUp,
   "Graphic Design": Palette,
@@ -24,6 +26,7 @@ const categoryIcons = {
   Photography: Camera,
 };
 
+// Portfolio data
 const portfolioData = [
   {
     id: 1,
@@ -87,13 +90,19 @@ const portfolioData = [
   },
 ];
 
-// Optimized Portfolio Card Component
+// Card Component with animation
 const PortfolioCard = ({ project }) => {
   const IconComponent = categoryIcons[project.category] || Code;
 
   return (
-    <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative">
-      {/* Project Image with Overlay */}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative"
+    >
+      {/* Image */}
       <figure className="h-64 overflow-hidden relative">
         <img
           src={project.image}
@@ -102,7 +111,7 @@ const PortfolioCard = ({ project }) => {
           loading="lazy"
         />
 
-        {/* Overlay with Actions */}
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
             <div className="flex gap-2">
@@ -119,7 +128,6 @@ const PortfolioCard = ({ project }) => {
           </div>
         </div>
 
-        {/* Featured Badge */}
         {project.featured && (
           <div className="absolute top-4 right-4">
             <div className="badge badge-secondary gap-1">
@@ -130,8 +138,8 @@ const PortfolioCard = ({ project }) => {
         )}
       </figure>
 
+      {/* Body */}
       <div className="card-body">
-        {/* Category Icon and Title */}
         <div className="flex items-center gap-3 mb-2">
           <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg transition-transform duration-300 group-hover:scale-110">
             <IconComponent className="text-primary" size={20} />
@@ -144,12 +152,10 @@ const PortfolioCard = ({ project }) => {
           </div>
         </div>
 
-        {/* Description */}
         <p className="text-base-content/70 mb-4 line-clamp-3">
           {project.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map((tag, tagIndex) => (
             <span
@@ -161,7 +167,6 @@ const PortfolioCard = ({ project }) => {
           ))}
         </div>
 
-        {/* Action Buttons */}
         <div className="card-actions justify-between">
           <button className="btn btn-sm btn-outline group-hover:btn-primary transition-all duration-300">
             View Details
@@ -177,14 +182,15 @@ const PortfolioCard = ({ project }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
+// Main Page
 export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-base-100 text-gray-950">
-      {/* Hero Section with Banner */}
+      {/* Hero Section */}
       <section
         className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat"
         style={{
@@ -192,33 +198,40 @@ export default function PortfolioPage() {
             "linear-gradient(rgba(106, 17, 203, 0.5), rgba(138, 43, 226, 0.5)), url('/images/banner2.webp')",
         }}
       >
-        {/* Animated floating elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-pulse opacity-20"></div>
-          <div
-            className="absolute top-3/4 right-1/4 w-24 h-24 bg-white/10 rounded-full animate-pulse opacity-30"
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <div
-            className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/10 rounded-full animate-pulse opacity-25"
-            style={{ animationDelay: "2s" }}
-          ></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-white/10 rounded-full animate-pulse opacity-30"></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/10 rounded-full animate-pulse opacity-25"></div>
         </div>
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-7xl font-bold mb-6 text-white"
+          >
             Our Portfolio
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-4"
+          >
             Featured Projects & Case Studies
-          </p>
-          <p className="text-base md:text-lg text-white/80 max-w-4xl mx-auto">
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="text-base md:text-lg text-white/80 max-w-4xl mx-auto"
+          >
             Explore our recent work and see how we have helped businesses across
             industries achieve their digital goals.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Gradient overlay at bottom */}
         <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-base-100 to-transparent"></div>
       </section>
 
@@ -233,7 +246,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Project Highlights Section */}
+      {/* Highlights */}
       <section className="py-16 bg-gradient-to-r from-base-200 to-base-300">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -243,60 +256,84 @@ export default function PortfolioPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center group cursor-pointer">
-              <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110">
-                <Code className="text-primary" size={32} />
-              </div>
-              <h3 className="text-3xl font-bold text-primary mb-2">50+</h3>
-              <p className="text-base-content/70">Projects Completed</p>
-            </div>
-
-            <div className="text-center group cursor-pointer">
-              <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110">
-                <Users className="text-secondary" size={32} />
-              </div>
-              <h3 className="text-3xl font-bold text-secondary mb-2">40+</h3>
-              <p className="text-base-content/70">Happy Clients</p>
-            </div>
-
-            <div className="text-center group cursor-pointer">
-              <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent/20 to-accent/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110">
-                <TrendingUp className="text-accent" size={32} />
-              </div>
-              <h3 className="text-3xl font-bold text-accent mb-2">200%</h3>
-              <p className="text-base-content/70">Average ROI</p>
-            </div>
-
-            <div className="text-center group cursor-pointer">
-              <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110">
-                <Star className="text-primary" size={32} />
-              </div>
-              <h3 className="text-3xl font-bold text-primary mb-2">5.0</h3>
-              <p className="text-base-content/70">Client Rating</p>
-            </div>
+            {[
+              {
+                icon: Code,
+                label: "Projects Completed",
+                value: "50+",
+                color: "primary",
+              },
+              {
+                icon: Users,
+                label: "Happy Clients",
+                value: "40+",
+                color: "secondary",
+              },
+              {
+                icon: TrendingUp,
+                label: "Average ROI",
+                value: "200%",
+                color: "accent",
+              },
+              {
+                icon: Star,
+                label: "Client Rating",
+                value: "5.0",
+                color: "primary",
+              },
+            ].map(({ icon: Icon, label, value, color }, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className="text-center group cursor-pointer"
+              >
+                <div
+                  className={`flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${color}/20 to-${color}/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110`}
+                >
+                  <Icon className={`text-${color}`} size={32} />
+                </div>
+                <h3 className={`text-3xl font-bold text-${color} mb-2`}>
+                  {value}
+                </h3>
+                <p className="text-base-content/70">{label}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <section className="bg-gradient-to-br from-base-200 via-base-200 to-base-300 py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20"></div>
         </div>
-
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl font-bold mb-4"
+          >
             Like What You See?
-          </h2>
-          <p className="text-xl text-base-content/70 mb-8 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-xl text-base-content/70 mb-8 max-w-2xl mx-auto"
+          >
             Lets create something amazing together. View all our projects or
             start your own.
-          </p>
+          </motion.p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="btn btn-primary btn-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group">
               <span className="flex items-center">
-                View All Projects
-                <ExternalLink size={18} className="ml-2" />
+                View All Projects <ExternalLink size={18} className="ml-2" />
               </span>
             </button>
             <button className="btn btn-outline btn-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:btn-primary group">
@@ -310,7 +347,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Optimized CSS */}
+      {/* Inline Styles */}
       <style jsx>{`
         .line-clamp-3 {
           display: -webkit-box;
@@ -318,21 +355,16 @@ export default function PortfolioPage() {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
-
         .card {
           will-change: transform;
         }
-
         .card:hover {
           transform: translateY(-4px);
         }
-
-        /* Reduce animations on mobile for better performance */
         @media (max-width: 768px) {
           .group-hover\\:scale-110:hover {
             transform: scale(1.05);
           }
-
           .card:hover {
             transform: translateY(-2px);
           }
