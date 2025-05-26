@@ -585,27 +585,15 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-base-100 text-gray-950 overflow-x-hidden">
-      {/* Hero Section with Animated Background */}
+      {/* Modified Hero Section */}
       <section
-        className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat overflow-hidden"
+        className="relative bg-primary text-primary-content min-h-[600px] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(106, 17, 203, 0.4), rgba(138, 43, 226, 0.6)), url('/images/servicesImage/banner4.jpg')",
+          backgroundImage: "url('/images/servicesImage/banner4.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
-        {/* Simplified animated floating elements for mobile */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-pulse opacity-20"></div>
-          <div
-            className="absolute top-3/4 right-1/4 w-24 h-24 bg-white/10 rounded-full animate-pulse opacity-30"
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <div
-            className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/10 rounded-full animate-pulse opacity-25"
-            style={{ animationDelay: "2s" }}
-          ></div>
-        </div>
-
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white animate-fade-in-up">
             Our Services
@@ -619,7 +607,7 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        {/* Animated wave effect at bottom */}
+        {/* Keep wave effect if needed */}
         <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-base-100 to-transparent"></div>
       </section>
 

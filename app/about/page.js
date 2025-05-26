@@ -2,6 +2,7 @@
 
 import React, { memo } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   BadgeCheck,
   Lightbulb,
@@ -82,12 +83,12 @@ const HIGHLIGHTS = [
   {
     icon: <Globe className="text-primary" size={32} />,
     title: "Global Impact",
-    desc: "We serve clients around the world with scalable and smart digital solutions.",
+    desc: "We serve clients worldwide with scalable digital solutions.",
   },
   {
     icon: <Heart className="text-primary" size={32} />,
     title: "Client-Centric",
-    desc: "Your vision is our mission. We put your goals at the center of our strategy.",
+    desc: "Your vision is our mission. We prioritize your goals.",
   },
 ];
 
@@ -95,22 +96,22 @@ const SERVICES = [
   {
     icon: <Star className="text-primary" size={32} />,
     title: "Quality Assured",
-    desc: "We maintain the highest standards in all our deliverables.",
+    desc: "Highest standards maintained in all deliverables.",
   },
   {
     icon: <TrendingUp className="text-primary" size={32} />,
     title: "Proven Results",
-    desc: "Track record of successful projects and satisfied clients.",
+    desc: "Track record of successful projects and clients.",
   },
   {
     icon: <Settings className="text-primary" size={32} />,
     title: "Custom Solutions",
-    desc: "Tailored approaches to meet your unique business requirements.",
+    desc: "Tailored approaches for unique business needs.",
   },
   {
     icon: <ArrowRight className="text-primary" size={32} />,
     title: "Fast Delivery",
-    desc: "Timely execution without compromising quality or impact.",
+    desc: "Timely execution without compromising quality.",
   },
 ];
 
@@ -118,17 +119,17 @@ const VALUES = [
   {
     icon: <Target className="text-indigo-700" />,
     title: "Our Mission",
-    desc: "To empower businesses with innovative digital solutions that drive growth, engagement, and lasting value.",
+    desc: "Empower businesses with innovative digital solutions for growth and value.",
   },
   {
     icon: <Eye className="text-indigo-700" />,
     title: "Our Vision",
-    desc: "To be the most trusted creative partner for businesses seeking exceptional digital experiences that transform their brand and market position.",
+    desc: "Be the most trusted partner for transformative digital experiences.",
   },
   {
     icon: <Heart className="text-indigo-700" />,
     title: "Our Values",
-    desc: "Excellence, Innovation, Integrity, Collaboration, and Client Success are the core principles that guide everything we do.",
+    desc: "Excellence, Innovation, Integrity, Collaboration, Client Success.",
   },
 ];
 
@@ -136,18 +137,40 @@ export default function AboutSection() {
   return (
     <section className="container mx-auto mb-8">
       <motion.div
+        className="relative min-h-[400px] w-full mb-16"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeInUp}
+      >
+        <Image
+          src="/images/banner.webp"
+          alt="About Us"
+          fill
+          className="object-cover rounded-xl"
+          priority
+          sizes="(max-width: 768px) 100vw, 80vw"
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-xl">
+          <div className="text-center text-white px-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              About Our Agency
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto">
+              We are passionate creators, strategists, and developers crafting
+              impactful digital experiences.
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div
         className="container mx-auto px-4"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={staggerContainer}
       >
-        <SectionHeader
-          title="About Our Agency"
-          description="We are a team of passionate creators, strategists, and developers dedicated to crafting impactful digital experiences."
-          className="bg-gradient-to-br from-primary/90 to-base-100 py-8"
-        />
-
         <AboutUs />
 
         {/* Highlights Section */}
@@ -167,18 +190,10 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Services Section */}
-        <motion.div
-          className="text-center mb-12 hidden lg:block"
-          variants={fadeInUp}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose Our Services?
-          </h2>
-          <p className="text-xl text-base-content/70 max-w-2xl mx-auto">
-            We deliver exceptional results through our proven approach and
-            dedicated expertise.
-          </p>
-        </motion.div>
+        <SectionHeader
+          title="Why Choose Us?"
+          description="We deliver exceptional results through proven expertise and dedicated service."
+        />
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
