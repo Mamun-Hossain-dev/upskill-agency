@@ -1,5 +1,7 @@
+// latest-works/page.jsx
 "use client";
 
+import Link from "next/link";
 import {
   ExternalLink,
   Eye,
@@ -16,7 +18,6 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-// Icon mapping
 const categoryIcons = {
   "Digital Marketing": TrendingUp,
   "Graphic Design": Palette,
@@ -30,70 +31,120 @@ const categoryIcons = {
 const portfolioData = [
   {
     id: 1,
-    title: "Eco-Friendly Brand Identity",
-    category: "Graphic Design",
+    client: "Seojoon",
+    country: "South Korea",
+    service: "Social Media Management",
+    title: "Brand Social Media Growth",
+    category: "Digital Marketing",
     description:
-      "Complete brand identity design for sustainable products company including logo, packaging, and marketing materials.",
-    image: "/portfolio/eco.jpg",
-    tags: ["Branding", "Logo Design", "Packaging"],
-    featured: false,
+      "We managed Seojoon's social presence across platforms with content creation, scheduling, engagement, and analytics. Engagement and visibility significantly improved.",
+    clientImage: "/portfolio/seojoon.jpg",
+    workImage: "portfolio/eco.jpg",
+    tags: ["Content", "Engagement", "Scheduling"],
+    featured: true,
   },
   {
     id: 2,
-    title: "E-commerce Platform Redesign",
-    category: "Web Development",
+    client: "Hyun",
+    country: "South Korea",
+    service: "Social Media Advertising",
+    title: "Targeted Social Ads",
+    category: "Digital Marketing",
     description:
-      "Modern, responsive e-commerce platform with improved UX/UI, resulting in significant increase in conversions.",
-    image: "/portfolio/work2.png",
-    tags: ["React", "Node.js", "E-commerce"],
+      "Ran optimized ad campaigns for Hyun focusing on awareness and conversions. Strong engagement and great ROI.",
+    clientImage: "/portfolio/hyun.jpg",
+    workImage: "portfolio/product.jpg",
+    tags: ["Ads", "Optimization", "Conversions"],
     featured: false,
   },
   {
     id: 3,
-    title: "Mobile App UI/UX Design",
-    category: "Mobile App",
+    client: "Richard",
+    country: "United States",
+    service: "Social Media Advertising & Google Ads",
+    title: "Cross-Platform Ad Campaigns",
+    category: "Digital Marketing",
     description:
-      "Intuitive mobile app design for fitness tracking with seamless user experience and modern interface.",
-    image: "/portfolio/mobile.webp",
-    tags: ["UI/UX", "Mobile Design", "Prototyping"],
-    featured: false,
+      "Managed social + Google Ads for Richard. Full funnel strategy, A/B testing, and strong lead generation with high ROI.",
+    clientImage: "/portfolio/richard.jpg",
+    workImage: "portfolio/work2.png",
+    tags: ["Google Ads", "Social Media", "A/B Testing"],
+    featured: true,
   },
   {
     id: 4,
-    title: "Corporate Website Overhaul",
+    client: "Lucas",
+    country: "United States",
+    service: "Website Creation & Management",
+    title: "Professional Business Website",
     category: "Web Development",
     description:
-      "Complete website redesign for financial services company with focus on trust, security, and user experience.",
-    image: "/portfolio/corporet.jpeg",
-    tags: ["WordPress", "SEO", "Security"],
+      "Designed and managed Lucas's business website with full setup, SEO, and maintenance. Site is secure and fully responsive.",
+    clientImage: "/portfolio/lucas.jpg",
+    workImage: "portfolio/work3.png",
+    tags: ["Web Design", "SEO", "Maintenance"],
     featured: false,
   },
   {
     id: 5,
-    title: "Social Media Growth Campaign",
-    category: "Digital Marketing",
+    client: "Ava",
+    country: "Australia",
+    service: "Graphic Design",
+    title: "Brand Identity Design",
+    category: "Graphic Design",
     description:
-      "Comprehensive social media strategy that increased follower count by 300% and engagement by 150% across multiple platforms.",
-    image: "/portfolio/work3.png",
-    tags: ["Social Media", "Content Strategy", "Analytics"],
+      "Created a full brand identity including logo, color palette, and marketing materials that gave Ava's brand a professional look and cohesive feel.",
+    clientImage: "/portfolio/ava.jpg",
+    workImage: "portfolio/corporet.jpeg",
+    tags: ["Logo", "Branding", "Colors"],
     featured: true,
   },
   {
     id: 6,
-    title: "Product Launch Campaign",
-    category: "Digital Marketing",
+    client: "Kenji",
+    country: "Japan",
+    service: "Mobile App UI/UX",
+    title: "Mobile Shopping App Design",
+    category: "Mobile App",
     description:
-      "Multi-channel marketing campaign for tech startup product launch, achieving exceptional ROI in first quarter.",
-    image: "/portfolio/product.jpg",
-    tags: ["PPC", "Content Marketing", "Analytics"],
-    featured: true,
+      "Crafted a sleek, intuitive interface for a mobile shopping platform, enhancing user experience and driving customer satisfaction.",
+    clientImage: "/portfolio/kenji.jpg",
+    workImage: "portfolio/mobile.webp",
+    tags: ["UI/UX", "Shopping", "Mobile"],
+    featured: false,
+  },
+  {
+    id: 7,
+    client: "Isabella",
+    country: "Italy",
+    service: "E-commerce Development",
+    title: "Online Boutique Store",
+    category: "E-commerce",
+    description:
+      "Developed a high-converting boutique e-commerce store with secure payment integration and product management dashboard.",
+    clientImage: "/portfolio/isabella.jpg",
+    workImage: "portfolio/mobile.webp",
+    tags: ["E-commerce", "Store", "Payments"],
+    featured: false,
+  },
+  {
+    id: 8,
+    client: "Mohamed",
+    country: "UAE",
+    service: "Photography",
+    title: "Luxury Product Photography",
+    category: "Photography",
+    description:
+      "Captured luxury product shots for high-end advertising campaigns. Images were used across print and digital media.",
+    clientImage: "/portfolio/mohamed.jpg",
+    workImage: "portfolio/mobile.webp",
+    tags: ["Luxury", "Products", "Photography"],
+    featured: false,
   },
 ];
 
-// Card Component with animation
 const PortfolioCard = ({ project }) => {
   const IconComponent = categoryIcons[project.category] || Code;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -102,274 +153,200 @@ const PortfolioCard = ({ project }) => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative"
     >
-      {/* Image */}
-      <figure className="h-64 overflow-hidden relative">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-        />
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-            <div className="flex gap-2">
-              <button className="btn btn-circle btn-sm bg-white/20 border-white/30 hover:bg-white/30 backdrop-blur-sm">
-                <Eye size={16} className="text-white" />
-              </button>
-              <button className="btn btn-circle btn-sm bg-white/20 border-white/30 hover:bg-white/30 backdrop-blur-sm">
-                <ExternalLink size={16} className="text-white" />
-              </button>
+      <Link href={`/latest-works/${project.id}`}>
+        <figure className="h-64 overflow-hidden relative">
+          <img
+            src={project.workImage}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {project.featured && (
+            <div className="absolute top-4 right-4">
+              <div className="badge badge-secondary gap-1">
+                <Star size={12} /> Featured
+              </div>
             </div>
-            <div className="badge badge-primary badge-sm">
-              {project.category}
-            </div>
-          </div>
-        </div>
+          )}
+        </figure>
 
-        {project.featured && (
-          <div className="absolute top-4 right-4">
-            <div className="badge badge-secondary gap-1">
-              <Star size={12} />
-              Featured
+        <div className="card-body">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg">
+              <IconComponent className="text-primary" size={20} />
+            </div>
+            <div>
+              <h3 className="card-title text-lg text-base-content group-hover:text-indigo-600 transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-base-content/60">{project.service}</p>
             </div>
           </div>
-        )}
-      </figure>
 
-      {/* Body */}
-      <div className="card-body">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg transition-transform duration-300 group-hover:scale-110">
-            <IconComponent className="text-primary" size={20} />
+          <p className="text-base-content/70 mb-4 line-clamp-3">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag, tagIndex) => (
+              <span
+                key={tagIndex}
+                className="badge badge-outline badge-xs group-hover:bg-indigo-100 group-hover:text-indigo-600"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
-          <div>
-            <h3 className="card-title text-lg transition-colors duration-300 group-hover:text-primary">
-              {project.title}
-            </h3>
-            <p className="text-sm text-base-content/60">{project.category}</p>
-          </div>
-        </div>
 
-        <p className="text-base-content/70 mb-4 line-clamp-3">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag, tagIndex) => (
-            <span
-              key={tagIndex}
-              className="badge badge-outline badge-xs transition-all duration-300 group-hover:badge-primary"
-            >
-              {tag}
+          <div className="card-actions justify-end">
+            <span className="btn btn-sm btn-outline group-hover:bg-indigo-600 group-hover:text-white border-indigo-600 hover:border-transparent transition-all duration-300">
+              View Details <ArrowRight size={14} className="ml-1" />
             </span>
-          ))}
+          </div>
         </div>
-
-        <div className="card-actions justify-between">
-          <button className="btn btn-sm btn-outline group-hover:btn-primary transition-all duration-300">
-            View Details
-          </button>
-          <button className="btn btn-sm btn-primary group-hover:btn-accent transition-all duration-300">
-            <span className="flex items-center">
-              View Project
-              <ArrowRight
-                size={14}
-                className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </span>
-          </button>
-        </div>
-      </div>
+      </Link>
     </motion.div>
   );
 };
 
-// Main Page
-export default function PortfolioPage() {
+const Banner = () => {
   return (
-    <div className="min-h-screen bg-base-100 text-gray-950">
-      {/* Hero Section */}
-      <section
-        className="relative bg-gradient-to-br from-primary to-primary-focus text-primary-content py-20 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(106, 17, 203, 0.5), rgba(138, 43, 226, 0.5)), url('/images/banner2.webp')",
-        }}
-      >
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-pulse opacity-20"></div>
-          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-white/10 rounded-full animate-pulse opacity-30"></div>
-          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/10 rounded-full animate-pulse opacity-25"></div>
-        </div>
+    <section className="relative h-96 md:h-[500px] overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="images/banner2.webp"
+          alt="Portfolio Banner"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+      </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
+        <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-7xl font-bold mb-6 text-white"
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            Our Latest Works
-          </motion.h1>
+            <motion.h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            >
+              <span className="text-gradient bg-gradient-to-r from-white to-indigo-300 bg-clip-text text-transparent">
+                Featured Projects
+              </span>
+              <br />
+              <span className="text-white">& Case Studies</span>
+            </motion.h1>
+          </motion.div>
+
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-4"
-          >
-            Featured Projects & Case Studies
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-base md:text-lg text-white/80 max-w-4xl mx-auto"
+            className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           >
             Explore our recent work and see how we have helped businesses across
             industries achieve their digital goals.
           </motion.p>
+
+          {/* Floating elements */}
+          <motion.div
+            className="absolute top-20 right-20 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"
+            animate={{
+              y: [-10, 10, -10],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
+          <motion.div
+            className="absolute bottom-32 right-32 w-16 h-16 bg-purple-500/20 rounded-full blur-lg"
+            animate={{
+              y: [10, -10, 10],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
         </div>
+      </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-base-100 to-transparent"></div>
-      </section>
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+      >
+        <motion.div
+          className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <motion.div
+            className="w-1 h-3 bg-white rounded-full mt-2"
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
 
-      {/* Portfolio Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {portfolioData.map((project) => (
-              <PortfolioCard key={project.id} project={project} />
-            ))}
-          </div>
-        </div>
-      </section>
+export default function PortfolioPage() {
+  return (
+    <div className="min-h-screen bg-base-100">
+      {/* Banner Section */}
+      <Banner />
 
-      {/* Highlights */}
-      <section className="py-16 bg-gradient-to-r from-base-200 to-base-300">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Portfolio Highlights
-            </h2>
-          </div>
+      {/* Portfolio Grid Section */}
+      <section className="py-16 container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-indigo-600">
+            Our Latest Works
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 mx-auto rounded-full" />
+        </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Code,
-                label: "Projects Completed",
-                value: "50+",
-                color: "primary",
-              },
-              {
-                icon: Users,
-                label: "Happy Clients",
-                value: "40+",
-                color: "secondary",
-              },
-              {
-                icon: TrendingUp,
-                label: "Average ROI",
-                value: "200%",
-                color: "accent",
-              },
-              {
-                icon: Star,
-                label: "Client Rating",
-                value: "5.0",
-                color: "primary",
-              },
-            ].map(({ icon: Icon, label, value, color }, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="text-center group cursor-pointer"
-              >
-                <div
-                  className={`flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${color}/20 to-${color}/10 rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-110`}
-                >
-                  <Icon className={`text-${color}`} size={32} />
-                </div>
-                <h3 className={`text-3xl font-bold text-${color} mb-2`}>
-                  {value}
-                </h3>
-                <p className="text-base-content/70">{label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-gradient-to-br from-base-200 via-base-200 to-base-300 py-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20"></div>
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-4"
-          >
-            Like What You See?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-xl text-base-content/70 mb-8 max-w-2xl mx-auto"
-          >
-            Lets create something amazing together. View all our projects or
-            start your own.
-          </motion.p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn btn-primary btn-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group">
-              <span className="flex items-center">
-                View All Projects <ExternalLink size={18} className="ml-2" />
-              </span>
-            </button>
-            <button className="btn btn-outline btn-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:btn-primary group">
-              Start Your Project
-              <ArrowRight
-                size={18}
-                className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {portfolioData.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: "easeOut",
+              }}
+            >
+              <PortfolioCard project={project} />
+            </motion.div>
+          ))}
         </div>
       </section>
-
-      {/* Inline Styles */}
-      <style jsx>{`
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .card {
-          will-change: transform;
-        }
-        .card:hover {
-          transform: translateY(-4px);
-        }
-        @media (max-width: 768px) {
-          .group-hover\\:scale-110:hover {
-            transform: scale(1.05);
-          }
-          .card:hover {
-            transform: translateY(-2px);
-          }
-        }
-      `}</style>
     </div>
   );
 }
