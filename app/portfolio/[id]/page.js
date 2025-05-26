@@ -24,7 +24,7 @@ const portfolioData = [
     category: "Digital Marketing",
     description:
       "We managed Seojoon's social presence across platforms with content creation, scheduling, engagement, and analytics. Engagement and visibility significantly improved.",
-    clientImage: "/portfolio/seojoon.jpg",
+    clientImage: "/images/clients/one.png",
     workImage: "portfolio/eco.jpg",
     tags: ["Content", "Engagement", "Scheduling"],
     featured: true,
@@ -40,7 +40,7 @@ const portfolioData = [
     category: "Digital Marketing",
     description:
       "Ran optimized ad campaigns for Hyun focusing on awareness and conversions. Strong engagement and great ROI.",
-    clientImage: "/portfolio/hyun.jpg",
+    clientImage: "/images/clients/two.png",
     workImage: "portfolio/product.jpg",
     tags: ["Ads", "Optimization", "Conversions"],
     featured: false,
@@ -56,7 +56,7 @@ const portfolioData = [
     category: "Digital Marketing",
     description:
       "Managed social + Google Ads for Richard. Full funnel strategy, A/B testing, and strong lead generation with high ROI.",
-    clientImage: "/portfolio/richard.jpg",
+    clientImage: "/images/clients/three.png",
     workImage: "portfolio/work2.png",
     tags: ["Google Ads", "Social Media", "A/B Testing"],
     featured: true,
@@ -72,7 +72,7 @@ const portfolioData = [
     category: "Web Development",
     description:
       "Designed and managed Lucas's business website with full setup, SEO, and maintenance. Site is secure and fully responsive.",
-    clientImage: "/portfolio/lucas.jpg",
+    clientImage: "/images/clients/four.png",
     workImage: "portfolio/work3.png",
     tags: ["Web Design", "SEO", "Maintenance"],
     featured: false,
@@ -88,7 +88,7 @@ const portfolioData = [
     category: "Graphic Design",
     description:
       "Created a full brand identity including logo, color palette, and marketing materials that gave Ava's brand a professional look and cohesive feel.",
-    clientImage: "/portfolio/ava.jpg",
+    clientImage: "/images/users/user1.jpg",
     workImage: "portfolio/corporet.jpeg",
     tags: ["Logo", "Branding", "Colors"],
     featured: true,
@@ -104,7 +104,7 @@ const portfolioData = [
     category: "Mobile App",
     description:
       "Crafted a sleek, intuitive interface for a mobile shopping platform, enhancing user experience and driving customer satisfaction.",
-    clientImage: "/portfolio/kenji.jpg",
+    clientImage: "/images/users/user2.jpg",
     workImage: "portfolio/mobile.webp",
     tags: ["UI/UX", "Shopping", "Mobile"],
     featured: false,
@@ -120,7 +120,7 @@ const portfolioData = [
     category: "E-commerce",
     description:
       "Developed a high-converting boutique e-commerce store with secure payment integration and product management dashboard.",
-    clientImage: "/portfolio/isabella.jpg",
+    clientImage: "",
     workImage: "portfolio/mobile.webp",
     tags: ["E-commerce", "Store", "Payments"],
     featured: false,
@@ -136,7 +136,7 @@ const portfolioData = [
     category: "Photography",
     description:
       "Captured luxury product shots for high-end advertising campaigns. Images were used across print and digital media.",
-    clientImage: "/portfolio/mohamed.jpg",
+    clientImage: "/",
     workImage: "portfolio/mobile.webp",
     tags: ["Luxury", "Products", "Photography"],
     featured: false,
@@ -188,16 +188,16 @@ export default function ProjectDetailPage() {
           </Link>
 
           {/* Header Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-200">
-            <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+          <div className="bg-white rounded-2xl shadow-lg p-4 mb-8 border border-gray-200">
+            <div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-3 lg:items-center">
               {/* Project Info */}
-              <div className="flex-1">
+              <div className="basis-[90%] lg:basis-[60%]">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="badge badge-primary badge-lg px-4 py-2 text-white font-medium">
+                  <span className="badge badge-primary badge-lg px-4 py-4 text-white font-medium">
                     {project.category}
                   </span>
                   {project.featured && (
-                    <span className="badge badge-warning badge-lg px-4 py-2 text-white font-medium">
+                    <span className="badge badge-warning badge-lg px-4 py-4 text-white font-medium">
                       Featured
                     </span>
                   )}
@@ -232,20 +232,20 @@ export default function ProjectDetailPage() {
               </div>
 
               {/* Client Image */}
-              <div className="flex-shrink-0 text-center">
+              <div className="flex-shrink-0 text-center px-4 md:px-1">
                 <div className="relative">
-                  <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-indigo-500 shadow-lg">
+                  <div className=" w-full md:w-1/2 lg:w-full h-1/2 mx-auto rounded-md overflow-hidden border-2 border-indigo-500 shadow-lg">
                     <Image
                       src={project.clientImage}
                       alt={`${project.client} - Client`}
-                      width={128}
-                      height={128}
+                      width={328}
+                      height={228}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white rounded-full p-2">
+                  {/* <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white rounded-full p-2">
                     <Star size={16} />
-                  </div>
+                  </div> */}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mt-4">
                   {project.client}
