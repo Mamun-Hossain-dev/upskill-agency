@@ -28,9 +28,9 @@ export default function HomePage() {
       <TestimonialsSlider />
 
       {/* Other content with constrained width */}
-      {/* <section className="max-w-4xl mx-auto w-full px-4 py-12">
+      {/* <section className=" px-4 py-12">
+        <ContactForm />
       </section> */}
-      {/* <ContactForm /> */}
     </>
   );
 }

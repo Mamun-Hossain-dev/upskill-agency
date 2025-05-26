@@ -1,203 +1,125 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+
+// Add display name to memoized component
+const TestimonialSlide = memo(({ testimonial }) => (
+  <div className="w-full flex-shrink-0">
+    <div className="p-10 md:p-14 lg:p-20">
+      <div className="flex flex-col lg:flex-row items-center gap-10">
+        <img
+          src={testimonial.image}
+          alt={testimonial.name}
+          width={144}
+          height={144}
+          loading="lazy"
+          className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-violet-500 hover:scale-105 transition-transform"
+        />
+        <div className="flex-1 text-center lg:text-left">
+          <div className="flex justify-center lg:justify-start mb-4">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Star
+                key={i}
+                className={`w-5 h-5 transition-all ${
+                  i < testimonial.rating
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+          <blockquote className="text-xl leading-relaxed text-slate-700 italic mb-6 transition-opacity duration-700">
+            “{testimonial.review}”
+          </blockquote>
+          <h4 className="text-xl font-bold text-indigo-800">
+            {testimonial.name}
+          </h4>
+          <p className="text-gray-500">{testimonial.position}</p>
+          <p className="text-slate-600 font-semibold">{testimonial.company}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
+// Set display name for the component
+TestimonialSlide.displayName = "TestimonialSlide";
 
 const TestimonialsSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  const testimonials = [
-    {
-      id: 1,
-      name: "Emily Carter",
-      position: "Founder & CEO",
-      company: "EduGrowth Solutions",
-      rating: 5,
-      review:
-        "Working with this team was a game-changer. Their ability to understand our goals and translate them into a functional, engaging website exceeded all expectations.",
-      image: "/images/users/user1.jpg",
-    },
-    {
-      id: 2,
-      name: "Michael Thompson",
-      position: "Training Director",
-      company: "NextGen Skills Hub",
-      rating: 4,
-      review:
-        "Our online training portal is now faster, more user-friendly, and mobile-optimized. We've received great feedback from participants and instructors alike.",
-      image: "/images/users/user2.jpg",
-    },
-    {
-      id: 3,
-      name: "Sophia Lin",
-      position: "Event Manager",
-      company: "InspireEd Conferences",
-      rating: 5,
-      review:
-        "They helped us launch a sleek event registration system with real-time analytics. It streamlined our process and impressed attendees.",
-      image: "/images/users/user4.jpg",
-    },
-    {
-      id: 4,
-      name: "James Mitchell",
-      position: "Marketing Lead",
-      company: "CareerConnect Fairs",
-      rating: 5,
-      review:
-        "From SEO to responsive design, they covered every detail. Our career fair attendance doubled thanks to the improved site visibility.",
-      image: "/images/users/user3.jpg",
-    },
-    {
-      id: 5,
-      name: "Ava Rodríguez",
-      position: "Digital Learning Coordinator",
-      company: "TechBridge Academy",
-      rating: 4,
-      review:
-        "We needed a scalable LMS with custom features. They delivered exactly that. Support has been top-notch too.",
-      image: "/images/users/user5.jpg",
-    },
-    {
-      id: 6,
-      name: "Ethan Kim",
-      position: "Founder",
-      company: "SkillSpring Webinars",
-      rating: 5,
-      review:
-        "Highly professional and responsive. The booking system and integrations work flawlessly across all devices.",
-      image: "/images/users/user6.jpg",
-    },
-    {
-      id: 7,
-      name: "Lily Nguyen",
-      position: "Operations Manager",
-      company: "EduNexus",
-      rating: 5,
-      review:
-        "They simplified our event logistics with a powerful dashboard. Our team productivity increased significantly.",
-      image: "/images/users/user7.jpg",
-    },
-    {
-      id: 8,
-      name: "David Parker",
-      position: "Director of Learning",
-      company: "FuturePath Training",
-      rating: 4,
-      review:
-        "Reliable, creative, and efficient. We appreciated their collaborative approach and attention to detail.",
-      image: "/images/users/user3.jpg", // duplicate
-    },
-    {
-      id: 9,
-      name: "Grace Lee",
-      position: "Program Manager",
-      company: "UpSkill Global",
-      rating: 5,
-      review:
-        "The custom portal they built saved us countless hours of admin work. Our users love the experience too.",
-      image: "/images/users/user8.jpg",
-    },
-    {
-      id: 10,
-      name: "Ryan Davis",
-      position: "Head of Events",
-      company: "BrightFuture Forums",
-      rating: 4,
-      review:
-        "From planning to deployment, they were with us every step. The interactive agenda and real-time updates wowed our attendees.",
-      image: "/images/users/user9.jpg",
-    },
-    {
-      id: 11,
-      name: "Natalie Brown",
-      position: "Strategy Consultant",
-      company: "BrightPath Advisors",
-      rating: 5,
-      review:
-        "They brought our vision to life with such precision. The website reflects our brand perfectly, and client inquiries have significantly increased.",
-      image: "/images/users/user10.avif",
-    },
-    {
-      id: 12,
-      name: "Kevin Liu",
-      position: "Founder & CEO",
-      company: "EduSphere",
-      rating: 5,
-      review:
-        "We were impressed with their ability to handle our LMS platform. The UX improvements alone boosted course completion rates by 70%.",
-      image: "/images/users/user6.jpg",
-    },
-    {
-      id: 13,
-      name: "Aisha Khan",
-      position: "Director of Communications",
-      company: "HealthBridge",
-      rating: 4,
-      review:
-        "Timely delivery, creative design, and strategic thinking. They were a true extension of our in-house team.",
-      image: "/images/users/user11.webp", // duplicate
-    },
-    {
-      id: 14,
-      name: "Daniel Moore",
-      position: "Lead Developer",
-      company: "PixelForge",
-      rating: 5,
-      review:
-        "As a developer, I appreciated the clean code and thoughtful design systems they implemented. Collaboration was smooth and efficient.",
-      image: "/images/users/user9.jpg", // duplicate
-    },
-    {
-      id: 15,
-      name: "Isabella Grace",
-      position: "Marketing Strategist",
-      company: "VisionCraft",
-      rating: 5,
-      review:
-        "Their campaign ideas were refreshingly innovative. We saw a spike in engagement metrics and customer retention after launching.",
-      image: "/images/users/user2.jpg", // duplicate
-    },
-  ];
+  const [testimonials, setTestimonials] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (isAutoPlaying) {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch("/data/testimonials.json");
+        const data = await response.json();
+        setTestimonials(data);
+      } catch (error) {
+        console.error("Error loading testimonials:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  const handleNavigation = useCallback(
+    (direction) => {
+      setCurrentIndex((prev) => {
+        if (direction === "next") {
+          return prev === testimonials.length - 1 ? 0 : prev + 1;
+        }
+        return prev === 0 ? testimonials.length - 1 : prev - 1;
+      });
+      setIsAutoPlaying(false);
+    },
+    [testimonials.length]
+  );
+
+  const nextSlide = useCallback(
+    () => handleNavigation("next"),
+    [handleNavigation]
+  );
+  const prevSlide = useCallback(
+    () => handleNavigation("prev"),
+    [handleNavigation]
+  );
+
+  const goToSlide = useCallback((index) => {
+    setCurrentIndex(index);
+    setIsAutoPlaying(false);
+  }, []);
+
+  useEffect(() => {
+    if (isAutoPlaying && testimonials.length > 0) {
       const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) =>
-          prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+        setCurrentIndex((prev) =>
+          prev === testimonials.length - 1 ? 0 : prev + 1
         );
       }, 6000);
       return () => clearInterval(interval);
     }
-  }, [currentIndex, isAutoPlaying, testimonials.length]);
+  }, [isAutoPlaying, testimonials.length]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
+  if (isLoading) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-20 text-center">
+        <div className="animate-pulse">Loading testimonials...</div>
+      </div>
     );
-    setIsAutoPlaying(false);
-  };
+  }
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
+  if (!testimonials.length) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-20 text-center">
+        No testimonials available
+      </div>
     );
-    setIsAutoPlaying(false);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
-  };
-
-  const renderStars = (rating) =>
-    Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-5 h-5 transition-all ${
-          i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ));
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-blue-50">
@@ -206,7 +128,8 @@ const TestimonialsSlider = () => {
           What Our Clients Say
         </h2>
         <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
-          {`Don't just take our word for it. Here's what our clients have to say about working with us.`}
+          Dont just take our word for it. Heres what our clients have to say
+          about working with us.
         </p>
       </div>
 
@@ -217,37 +140,14 @@ const TestimonialsSlider = () => {
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="w-full flex-shrink-0">
-                <div className="p-10 md:p-14 lg:p-20">
-                  <div className="flex flex-col lg:flex-row items-center gap-10">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-violet-500 hover:scale-105 transition-transform"
-                    />
-                    <div className="flex-1 text-center lg:text-left">
-                      <div className="flex justify-center lg:justify-start mb-4">
-                        {renderStars(testimonial.rating)}
-                      </div>
-                      <blockquote className="text-xl leading-relaxed text-slate-700 italic mb-6 transition-opacity duration-700">
-                        “{testimonial.review}”
-                      </blockquote>
-                      <h4 className="text-xl font-bold text-indigo-800">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-gray-500">{testimonial.position}</p>
-                      <p className="text-slate-600 font-semibold">
-                        {testimonial.company}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TestimonialSlide
+                key={testimonial.id}
+                testimonial={testimonial}
+              />
             ))}
           </div>
         </div>
 
-        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-md hover:shadow-xl transition-all duration-300"
@@ -262,7 +162,6 @@ const TestimonialsSlider = () => {
         </button>
       </div>
 
-      {/* Pagination Dots */}
       <div className="flex justify-center mt-8 space-x-2">
         {testimonials.map((_, index) => (
           <button
@@ -277,7 +176,6 @@ const TestimonialsSlider = () => {
         ))}
       </div>
 
-      {/* Auto-play Toggle */}
       <div className="text-center mt-6">
         <button
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}

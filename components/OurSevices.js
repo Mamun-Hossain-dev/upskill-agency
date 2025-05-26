@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   BarChart3,
   Camera,
@@ -17,28 +19,27 @@ import {
   Code,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
-// Icon map with consistent sizing
+const iconStyle = "w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600";
+
 const iconMap = {
-  "Digital Marketing": <BarChart3 className="icon-style" />,
-  "Social Media Advertising": <Target className="icon-style" />,
-  "Social Media Management": <Users className="icon-style" />,
-  "Google Ads (Search, Display & YouTube)": <Search className="icon-style" />,
+  "Digital Marketing": <BarChart3 className={iconStyle} />,
+  "Social Media Advertising": <Target className={iconStyle} />,
+  "Social Media Management": <Users className={iconStyle} />,
+  "Google Ads (Search, Display & YouTube)": <Search className={iconStyle} />,
   "Facebook Campaign with Pixel & Conversion API": (
-    <Settings className="icon-style" />
+    <Settings className={iconStyle} />
   ),
-  "B2B Lead Generation": <Globe className="icon-style" />,
-  "Instagram Organic Growth": <Star className="icon-style" />,
-  "YouTube SEO & Organic Video Promotion": <Play className="icon-style" />,
+  "B2B Lead Generation": <Globe className={iconStyle} />,
+  "Instagram Organic Growth": <Star className={iconStyle} />,
+  "YouTube SEO & Organic Video Promotion": <Play className={iconStyle} />,
   "Website SEO (Search Engine Optimization)": (
-    <TrendingUp className="icon-style" />
+    <TrendingUp className={iconStyle} />
   ),
-  "Website Creation & Design": <Palette className="icon-style" />,
-  "Video Editing": <Camera className="icon-style" />,
+  "Website Creation & Design": <Palette className={iconStyle} />,
+  "Video Editing": <Camera className={iconStyle} />,
 };
 
-// Framer Motion variants
 const sectionVariants = {
   hidden: { opacity: 0, y: 60 },
   show: {
@@ -66,7 +67,7 @@ export default function OurServices() {
     fetch("/data/services.json")
       .then((res) => res.json())
       .then((data) => setServices(data.slice(0, 3)))
-      .catch((err) => console.error("Error loading services:", err));
+      .catch((err) => console.error("Failed to load services data:", err));
   }, []);
 
   return (
@@ -103,21 +104,26 @@ export default function OurServices() {
         className="mt-12 grid gap-8 md:gap-12 lg:gap-24 sm:grid-cols-2 md:grid-cols-3 max-w-7xl mx-auto px-2 md:px-6"
         variants={sectionVariants}
       >
-        {services.map((service) => (
+        {services.map((service, index) => (
           <motion.div
             key={service.id}
             variants={cardVariants}
             whileHover={{ scale: 1.03 }}
             className="bg-slate-50 rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all"
           >
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6 border-[1px] border-white hover:border-indigo-600 transition-colors duration-200">
+            <div className="relative w-full h-48">
+              <Image
+                src={service.image}
+                alt={service.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={index === 0}
+                className="object-cover"
+              />
+            </div>
+            <div className="p-6 border border-white hover:border-indigo-600 transition-colors duration-200">
               <div className="flex items-center gap-2 mb-3">
-                {iconMap[service.title] || <Code className="icon-style" />}
+                {iconMap[service.title] || <Code className={iconStyle} />}
                 <h3 className="text-lg font-semibold text-indigo-700">
                   {service.title}
                 </h3>
@@ -138,6 +144,3 @@ export default function OurServices() {
     </motion.section>
   );
 }
-
-// Tailwind icon class (reuse for consistent styling)
-const iconStyle = "w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-indigo-600";

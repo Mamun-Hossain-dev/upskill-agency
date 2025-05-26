@@ -4,7 +4,9 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
+// Fade-up animation variant
 const fadeUp = {
   hidden: { opacity: 0, y: 60 },
   visible: {
@@ -12,12 +14,21 @@ const fadeUp = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.8, 0.25, 1], // smooth cubic bezier easing
+      ease: [0.25, 0.8, 0.25, 1],
     },
   },
 };
 
 const AboutUs = () => {
+  const stats = useMemo(
+    () => [
+      { value: "200+", label: "Clients Worldwide" },
+      { value: "350+", label: "Projects Completed" },
+      { value: "15+", label: "Industry Awards" },
+    ],
+    []
+  );
+
   return (
     <motion.section
       initial="hidden"
@@ -35,11 +46,13 @@ const AboutUs = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-8">
           We are a Team of Creative Problem Solvers
         </h2>
+
         <p className="text-gray-600 text-base leading-relaxed">
           Founded in 2018, CreativeEdge has grown from a small design studio to
           a full-service digital agency with a passion for creating impactful
           digital experiences that drive real business results.
         </p>
+
         <p className="text-gray-600 text-base leading-relaxed">
           Our diverse team brings together expertise in design, development, and
           marketing to deliver integrated solutions that help our clients stand
@@ -48,18 +61,14 @@ const AboutUs = () => {
 
         {/* Stats */}
         <div className="flex flex-wrap gap-6 pt-4 text-center">
-          <div>
-            <h3 className="text-3xl font-bold text-indigo-700">200+</h3>
-            <p className="text-gray-500">Clients Worldwide</p>
-          </div>
-          <div>
-            <h3 className="text-3xl font-bold text-indigo-700">350+</h3>
-            <p className="text-gray-500">Projects Completed</p>
-          </div>
-          <div>
-            <h3 className="text-3xl font-bold text-indigo-700">15+</h3>
-            <p className="text-gray-500">Industry Awards</p>
-          </div>
+          {stats.map((stat, index) => (
+            <div key={index}>
+              <h3 className="text-3xl font-bold text-indigo-700">
+                {stat.value}
+              </h3>
+              <p className="text-gray-500">{stat.label}</p>
+            </div>
+          ))}
         </div>
 
         <Link
@@ -81,11 +90,12 @@ const AboutUs = () => {
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
+          priority
         />
 
         {/* Rating badge */}
         <div className="absolute bottom-6 left-7 right-1 bg-white bg-opacity-90 p-4 rounded-xl shadow flex items-center gap-1">
-          {[...Array(5)].map((_, index) => (
+          {Array.from({ length: 5 }).map((_, index) => (
             <Star
               key={index}
               className="text-yellow-400 w-5 h-5 fill-yellow-400"
