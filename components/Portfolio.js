@@ -153,7 +153,7 @@ const PortfolioCard = ({ project }) => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative"
     >
-      <Link href={`/latest-works/${project.id}`}>
+      <Link href={`/portfolio/${project.id}`}>
         <figure className="h-64 overflow-hidden relative">
           <img
             src={project.workImage}
