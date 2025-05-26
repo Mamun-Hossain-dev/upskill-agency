@@ -122,7 +122,7 @@ const TestimonialsSlider = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="max-w-6xl mx-auto px-4 py-20">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
           What Our Clients Say
