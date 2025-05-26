@@ -17,6 +17,7 @@ import {
   Camera,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { memo, useMemo } from "react";
 
 const categoryIcons = {
   "Digital Marketing": TrendingUp,
@@ -143,15 +144,50 @@ const portfolioData = [
   },
 ];
 
-const PortfolioCard = ({ project }) => {
-  const IconComponent = categoryIcons[project.category] || Code;
+// Optimized animation variants
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
+    },
+  },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const PortfolioCard = memo(({ project }) => {
+  const IconComponent = useMemo(
+    () => categoryIcons[project.category] || Code,
+    [project.category]
+  );
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative"
+      variants={cardVariants}
+      className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group relative will-change-transform"
+      whileHover={{
+        y: -4,
+        transition: { duration: 0.2, ease: "easeOut" },
+      }}
+      layout={false} // Disable layout animations for better performance
     >
       <Link href={`/portfolio/${project.id}`}>
         <figure className="h-64 overflow-hidden relative">
@@ -160,6 +196,7 @@ const PortfolioCard = ({ project }) => {
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {project.featured && (
@@ -208,9 +245,31 @@ const PortfolioCard = ({ project }) => {
       </Link>
     </motion.div>
   );
-};
+});
 
-const Banner = () => {
+PortfolioCard.displayName = "PortfolioCard";
+
+// Optimized floating elements with reduced complexity
+const FloatingElement = memo(({ className, delay = 0 }) => (
+  <motion.div
+    className={className}
+    animate={{
+      y: [-8, 8, -8],
+      opacity: [0.3, 0.5, 0.3],
+    }}
+    transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+      delay,
+    }}
+    style={{ willChange: "transform, opacity" }}
+  />
+));
+
+FloatingElement.displayName = "FloatingElement";
+
+const Banner = memo(() => {
   return (
     <section className="relative h-96 md:h-[500px] overflow-hidden">
       {/* Background Image */}
@@ -219,6 +278,8 @@ const Banner = () => {
           src="images/banner2.webp"
           alt="Portfolio Banner"
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
       </div>
@@ -227,15 +288,15 @@ const Banner = () => {
       <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
         <div className="max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             >
               <span className="text-gradient bg-gradient-to-r from-white to-indigo-300 bg-clip-text text-transparent">
                 Featured Projects
@@ -247,66 +308,50 @@ const Banner = () => {
 
           <motion.p
             className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed"
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
             Explore our recent work and see how we have helped businesses across
             industries achieve their digital goals.
           </motion.p>
 
-          {/* Floating elements */}
-          <motion.div
+          {/* Optimized floating elements */}
+          <FloatingElement
             className="absolute top-20 right-20 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"
-            animate={{
-              y: [-10, 10, -10],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            delay={0}
           />
-
-          <motion.div
+          <FloatingElement
             className="absolute bottom-32 right-32 w-16 h-16 bg-purple-500/20 rounded-full blur-lg"
-            animate={{
-              y: [10, -10, 10],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
+            delay={1}
           />
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Simplified scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
       >
         <motion.div
           className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
           <motion.div
             className="w-1 h-3 bg-white rounded-full mt-2"
-            animate={{ opacity: [1, 0.3, 1] }}
+            animate={{ opacity: [1, 0.4, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
       </motion.div>
     </section>
   );
-};
+});
+
+Banner.displayName = "Banner";
 
 export default function PortfolioPage() {
   return (
@@ -317,10 +362,10 @@ export default function PortfolioPage() {
       {/* Portfolio Grid Section */}
       <section className="py-16 container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-indigo-600">
@@ -329,23 +374,19 @@ export default function PortfolioPage() {
           <div className="w-24 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {portfolioData.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: "easeOut",
-              }}
-            >
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          {portfolioData.map((project) => (
+            <motion.div key={project.id} variants={cardVariants}>
               <PortfolioCard project={project} />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

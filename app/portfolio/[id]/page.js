@@ -336,12 +336,14 @@ export default function ProjectDetailPage() {
                 level of dedication and expertise.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="btn btn-primary btn-lg px-8 text-white font-medium">
-                  Start a Project
-                </button>
+                <Link href={"/contact"}>
+                  <button className="btn btn-primary btn-lg px-8 hover:bg-indigo-900 text-white font-medium">
+                    Start a Project
+                  </button>
+                </Link>
                 <Link
-                  href="/latest-works"
-                  className="btn btn-outline btn-lg px-8 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                  href="/portfolio"
+                  className="btn btn-outline btn-lg px-8 border-indigo-600 text-indigo-600 hover:bg-indigo-50 "
                 >
                   View More Projects
                 </Link>

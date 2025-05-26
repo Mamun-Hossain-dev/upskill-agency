@@ -20,7 +20,7 @@ export default function TrustedSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.3,
+        delayChildren: 0.2,
       },
     },
   };

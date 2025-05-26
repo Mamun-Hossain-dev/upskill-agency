@@ -13,7 +13,7 @@ const fadeUp = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.5,
       ease: [0.25, 0.8, 0.25, 1],
     },
   },
@@ -22,9 +22,9 @@ const fadeUp = {
 const AboutUs = () => {
   const stats = useMemo(
     () => [
-      { value: "200+", label: "Clients Worldwide" },
-      { value: "350+", label: "Projects Completed" },
-      { value: "15+", label: "Industry Awards" },
+      { value: "240+", label: "Clients Worldwide" },
+      { value: "400+", label: "Projects Completed" },
+      { value: "10+", label: "Industry Awards" },
     ],
     []
   );
@@ -48,9 +48,9 @@ const AboutUs = () => {
         </h2>
 
         <p className="text-gray-600 text-base leading-relaxed">
-          Founded in 2018, CreativeEdge has grown from a small design studio to
-          a full-service digital agency with a passion for creating impactful
-          digital experiences that drive real business results.
+          Founded in 2018, UpSkill Digital Agency has grown from a small design
+          studio to a full-service digital agency with a passion for creating
+          impactful digital experiences that drive real business results.
         </p>
 
         <p className="text-gray-600 text-base leading-relaxed">
