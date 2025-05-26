@@ -173,7 +173,7 @@ export default function ProjectDetailPage() {
 
           {/* Header Section */}
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-8 border border-gray-200">
-            <div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-3 lg:items-center">
+            <div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-3 ">
               {/* Project Info */}
               <div className="basis-[90%] lg:basis-[60%]">
                 <div className="flex items-center gap-3 mb-4">
