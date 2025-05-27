@@ -113,7 +113,7 @@ const HeroSection = memo(() => (
     variants={heroVariant}
   >
     <Image
-      src="/images/banner.webp"
+      src="/images/banner.jpg"
       alt="About Us"
       fill
       className="object-cover rounded-xl"
