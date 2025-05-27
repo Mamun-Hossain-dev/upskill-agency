@@ -112,16 +112,17 @@ const HeroSection = memo(() => (
     viewport={{ once: true, margin: "-80px" }}
     variants={heroVariant}
   >
-    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+    <div className="relative w-full overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
       <Image
         src="/images/about.avif"
         alt="About Us"
         fill
-        className="object-cover w-full h-full rounded-none md:rounded-xl"
         priority
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
         quality={65}
+        sizes="100vw"
+        className="object-cover object-center w-full h-full md:rounded-xl"
       />
+      {/* Optional Overlay or Gradient if needed later */}
     </div>
 
     <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-xl">
@@ -135,7 +136,7 @@ const HeroSection = memo(() => (
           About Our Agency
         </motion.h2>
         <motion.p
-          className="text-xl max-w-3xl mx-auto"
+          className="text-base md:text-xl max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
