@@ -112,21 +112,22 @@ const HeroSection = memo(() => (
     viewport={{ once: true, margin: "-80px" }}
     variants={heroVariant}
   >
-    <Image
-      src="/images/banner.jpg"
-      alt="About Us"
-      fill
-      className="object-cover rounded-xl"
-      priority
-      sizes="(max-width: 768px) 100vw, 80vw"
-      loading="eager"
-      decoding="sync"
-      quality={35}
-    />
+    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+      <Image
+        src="/images/about.avif"
+        alt="About Us"
+        fill
+        className="object-cover w-full h-full rounded-none md:rounded-xl"
+        priority
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
+        quality={65}
+      />
+    </div>
+
     <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-xl">
       <div className="text-center text-white px-4">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-6"
+          className="text-4xl md:text-6xl font-bold mb-6 text-white "
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
