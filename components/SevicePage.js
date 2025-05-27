@@ -351,21 +351,23 @@ const AnimatedServiceCard = ({ service, index }) => {
 
         {/* Action Button with reduced mobile animation */}
         <div className="card-actions justify-center">
-          <button
-            className={`btn btn-primary w-full group-hover:btn-accent transition-all duration-300 transform group-hover:shadow-lg overflow-hidden relative ${
-              isMobile ? "group-hover:scale-102" : "group-hover:scale-105"
-            }`}
-          >
-            <span className="relative z-10 flex items-center justify-center">
-              Learn More
-              <ArrowRight
-                size={16}
-                className="ml-1 transition-all duration-300 group-hover:translate-x-1"
-              />
-            </span>
-            {/* Button hover effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-accent to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
+          <Link href={"/contact"}>
+            <button
+              className={`btn btn-primary w-full group-hover:btn-accent transition-all duration-300 transform group-hover:shadow-lg overflow-hidden relative ${
+                isMobile ? "group-hover:scale-102" : "group-hover:scale-105"
+              }`}
+            >
+              <span className="relative z-10 flex items-center justify-center">
+                Learn More
+                <ArrowRight
+                  size={16}
+                  className="ml-1 transition-all duration-300 group-hover:translate-x-1"
+                />
+              </span>
+              {/* Button hover effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-accent to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </Link>
         </div>
 
         {/* Reduced background pattern effect on mobile */}

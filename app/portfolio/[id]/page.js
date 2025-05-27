@@ -16,6 +16,38 @@ import { motion } from "framer-motion";
 
 const portfolioData = [
   {
+    id: 0,
+    client: "Abdul Rahman",
+    country: "Qatar",
+    service: "Website SEO",
+    title: "Comprehensive SEO for Online Visibility",
+    category: "SEO",
+    description:
+      "I worked with Abdul Rahman to enhance his website's visibility on search engines through comprehensive SEO strategies. My responsibilities included conducting keyword research, optimizing on-page elements, improving site speed, and building quality backlinks. These efforts helped boost his site's ranking, attract more organic traffic, and improve overall online presence.",
+    clientImage: "/images/clients/abdul.png",
+    workImage: "/portfolio/seo.jpg",
+    tags: ["SEO", "Keyword Research", "Backlinks"],
+    featured: true,
+    duration: "3 months",
+    year: 2024,
+  },
+  {
+    id: 2,
+    client: "Joseph",
+    country: "Croatia",
+    service: "Website SEO",
+    title: "Strategic SEO Campaign",
+    category: "SEO",
+    description:
+      "I collaborated with Joseph to improve his website's search engine visibility through strategic SEO practices. This included on-page optimization (meta tags, content structure, keyword placement), technical SEO fixes, and backlink strategies. As a result, his website saw improved rankings on Google, increased organic traffic, and better overall performance.",
+    clientImage: "/images/clients/joseph.png",
+    workImage: "/portfolio/static.jpg",
+    tags: ["SEO", "Optimization", "Traffic Growth"],
+    featured: true,
+    duration: "2 months",
+    year: 2024,
+  },
+  {
     id: 1,
     client: "Amihan",
     country: "Philippines",
@@ -25,14 +57,14 @@ const portfolioData = [
     description:
       "I worked with Amihan to run result-driven advertising campaigns on both social media platforms and Google Ads. My responsibilities included market research, campaign setup, ad creative development, and continuous performance monitoring. These campaigns helped increase online visibility, attract new customers, and achieve measurable business growth.",
     clientImage: "/images/clients/one1.png",
-    workImage: "portfolio/eco.jpg",
+    workImage: "/portfolio/eco.jpg",
     tags: ["Advertising", "Google Ads", "Strategy"],
     featured: true,
-    duration: "3 months",
+    duration: "1.5 months",
     year: 2023,
   },
   {
-    id: 2,
+    id: 3,
     client: "Isabella",
     country: "Canada",
     service: "Social Media Management, YouTube Video SEO & Video Editing",
@@ -41,30 +73,30 @@ const portfolioData = [
     description:
       "I collaborated with Isabella to manage her social media presence and grow her YouTube channel. My tasks included creating and scheduling engaging social media content, optimizing YouTube videos for SEO (titles, tags, descriptions, and thumbnails), and editing videos to ensure high-quality, audience-friendly content. This holistic approach helped increase her online visibility and grow her follower base across platforms.",
     clientImage: "/images/clients/two2.png",
-    workImage: "portfolio/isabella.jpg",
+    workImage: "/portfolio/isabella.jpg",
     tags: ["YouTube SEO", "Video Editing", "Social Management"],
     featured: true,
-    duration: "6 months",
+    duration: "4 months",
     year: 2023,
   },
   {
-    id: 3,
+    id: 4,
     client: "Richard",
     country: "United States",
     service: "Social Media Management",
     title: "Strategic Social Presence Management",
     category: "Digital Marketing",
     description:
-      "I worked closely with Richard to manage and maintain his brand’s presence across major social media platforms. My responsibilities included creating visually appealing content, scheduling regular posts, engaging with the audience, and tracking performance metrics. Through a consistent and strategic approach, we were able to enhance brand engagement and community growth.",
+      "I worked closely with Richard to manage and maintain his brand's presence across major social media platforms. My responsibilities included creating visually appealing content, scheduling regular posts, engaging with the audience, and tracking performance metrics. Through a consistent and strategic approach, we were able to enhance brand engagement and community growth.",
     clientImage: "/images/clients/there3.png",
-    workImage: "portfolio/richard.jpg",
+    workImage: "/portfolio/richard.jpg",
     tags: ["Content", "Engagement", "Analytics"],
     featured: true,
-    duration: "4 months",
-    year: 2024,
+    duration: "3 months",
+    year: 2023,
   },
   {
-    id: 4,
+    id: 5,
     client: "Seojoon",
     country: "South Korea",
     service: "Social Media Management",
@@ -73,14 +105,14 @@ const portfolioData = [
     description:
       "We managed Seojoon's social presence across platforms with content creation, scheduling, engagement, and analytics. Engagement and visibility significantly improved.",
     clientImage: "/images/clients/four4.png",
-    workImage: "portfolio/seojoon.png",
+    workImage: "/portfolio/seojoon.png",
     tags: ["Content", "Engagement", "Scheduling"],
     featured: true,
-    duration: "2 months",
-    year: 2024,
+    duration: "2.5 months",
+    year: 2023,
   },
   {
-    id: 5,
+    id: 6,
     client: "Hyun",
     country: "South Korea",
     service: "Social Media Advertising",
@@ -89,14 +121,14 @@ const portfolioData = [
     description:
       "Ran optimized ad campaigns for Hyun focusing on awareness and conversions. Strong engagement and great ROI.",
     clientImage: "/images/clients/five5.png",
-    workImage: "portfolio/hyon.png",
+    workImage: "/portfolio/hyon.png",
     tags: ["Ads", "Optimization", "Conversions"],
     featured: false,
     duration: "1 month",
-    year: 2024,
+    year: 2022,
   },
   {
-    id: 6,
+    id: 7,
     client: "Lucas",
     country: "United States",
     service: "Website Creation & Management",
@@ -105,14 +137,14 @@ const portfolioData = [
     description:
       "Designed and managed Lucas's business website with full setup, SEO, and maintenance. Site is secure and fully responsive.",
     clientImage: "/images/clients/six6.png",
-    workImage: "portfolio/lucas.jpeg",
+    workImage: "/portfolio/lucas.jpeg",
     tags: ["Web Design", "SEO", "Maintenance"],
     featured: false,
-    duration: "2 months",
-    year: 2023,
+    duration: "3 months",
+    year: 2022,
   },
   {
-    id: 7,
+    id: 8,
     client: "Raphael",
     country: "France",
     service: "Social Media Management & Video Editing",
@@ -121,14 +153,14 @@ const portfolioData = [
     description:
       "I partnered with Raphael to manage his social media presence and produce high-quality video content for his brand. My work included planning and scheduling engaging posts, interacting with the audience, and editing videos for various platforms to ensure a professional and consistent look. These efforts helped strengthen his brand identity and improve audience engagement.",
     clientImage: "/images/clients/seven7.png",
-    workImage: "portfolio/rafael.jpeg",
+    workImage: "/portfolio/rafael.jpeg",
     tags: ["Social Media", "Video Editing", "Branding"],
     featured: false,
-    duration: "3 months",
-    year: 2024,
+    duration: "2 months",
+    year: 2023,
   },
   {
-    id: 8,
+    id: 9,
     client: "Feng",
     country: "China",
     service: "B2B Lead Generation",
@@ -137,11 +169,11 @@ const portfolioData = [
     description:
       "I worked with Feng to generate high-quality B2B leads tailored to his target market and business goals. My tasks included researching potential clients, building verified lead lists, and using tools like LinkedIn and email outreach to connect with decision-makers. The campaign successfully provided a consistent stream of qualified leads, helping to grow his business network and opportunities.",
     clientImage: "/images/clients/eight8.png",
-    workImage: "portfolio/feng.jpg",
+    workImage: "/portfolio/feng.jpg",
     tags: ["B2B", "Leads", "Outreach"],
     featured: false,
-    duration: "2 months",
-    year: 2023,
+    duration: "1.5 months",
+    year: 2022,
   },
 ];
 
@@ -171,17 +203,17 @@ export default function ProjectDetailPage() {
     <div className="bg-white min-h-screen">
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {/* Back Button */}
           <Link
             href="/portfolio"
-            className="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition mb-8 group"
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors duration-150 mb-8 group"
           >
             <ArrowLeft
-              className="mr-2 group-hover:-translate-x-1 transition-transform"
+              className="mr-2 group-hover:-translate-x-1 transition-transform duration-150 will-change-transform"
               size={18}
             />
             Back to Portfolio
@@ -240,7 +272,7 @@ export default function ProjectDetailPage() {
                       alt={`${project.client} - Client`}
                       width={328}
                       height={228}
-                      quality={55}
+                      quality={75}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -266,12 +298,12 @@ export default function ProjectDetailPage() {
                 </h2>
                 <div className="rounded-xl overflow-hidden shadow">
                   <Image
-                    src={`/${project.workImage}`}
+                    src={project.workImage}
                     alt={project.title}
                     width={800}
                     height={500}
-                    quality={45}
-                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                    quality={55}
+                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-200 will-change-transform"
                   />
                 </div>
               </div>
@@ -296,10 +328,14 @@ export default function ProjectDetailPage() {
                   {project.tags.map((tag, index) => (
                     <motion.span
                       key={index}
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow hover:shadow-md transition"
+                      transition={{
+                        delay: index * 0.05,
+                        duration: 0.2,
+                        ease: "easeOut",
+                      }}
+                      className="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow hover:shadow-md transition-shadow duration-150"
                     >
                       {tag}
                     </motion.span>
@@ -334,7 +370,7 @@ export default function ProjectDetailPage() {
                 Interested in Similar Work?
               </h2>
               <p className="text-gray-600 text-lg mb-6 max-w-2xl mx-auto">
-                Let’s discuss how we can bring your vision to life with the same
+                Lets discuss how we can bring your vision to life with the same
                 level of dedication and expertise.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

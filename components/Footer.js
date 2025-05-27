@@ -50,7 +50,7 @@ export default function Footer() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.facebook.com/share/15bVsy2EFN/"
+                href="https://www.facebook.com/profile.php?id=61575251046929"
                 className="btn btn-ghost btn-sm btn-circle hover:bg-primary hover:text-primary-content"
                 aria-label="Facebook"
               >

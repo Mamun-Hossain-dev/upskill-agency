@@ -125,7 +125,7 @@ export default function ContactSection() {
   const socialLinks = [
     {
       icon: Facebook,
-      href: "https://www.facebook.com/share/15bVsy2EFN/",
+      href: "https://www.facebook.com/profile.php?id=61575251046929",
       label: "Facebook",
       color: "hover:text-blue-600",
     },

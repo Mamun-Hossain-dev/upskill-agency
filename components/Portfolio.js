@@ -32,6 +32,34 @@ const categoryIcons = {
 // Portfolio data
 const portfolioData = [
   {
+    id: 0,
+    client: "Abdul Rahman",
+    country: "Qatar",
+    service: "Website SEO",
+    title: "Comprehensive SEO for Online Visibility",
+    category: "SEO",
+    description:
+      "I worked with Abdul Rahman to enhance his website’s visibility on search engines through comprehensive SEO strategies. My responsibilities included conducting keyword research, optimizing on-page elements, improving site speed, and building quality backlinks. These efforts helped boost his site’s ranking, attract more organic traffic, and improve overall online presence.",
+    clientImage: "/images/clients/abdul.png", // Replace with actual image
+    workImage: "/portfolio/seo.jpg", // Replace with actual image
+    tags: ["SEO", "Keyword Research", "Backlinks"],
+    featured: true,
+  },
+  {
+    id: 2,
+    client: "Joseph",
+    country: "Croatia", // Update if needed
+    service: "Website SEO",
+    title: "Strategic SEO Campaign",
+    category: "SEO",
+    description:
+      "I collaborated with Joseph to improve his website’s search engine visibility through strategic SEO practices. This included on-page optimization (meta tags, content structure, keyword placement), technical SEO fixes, and backlink strategies. As a result, his website saw improved rankings on Google, increased organic traffic, and better overall performance.",
+    clientImage: "/images/clients/joseph.png", // Replace with actual image
+    workImage: "/portfolio/static.jpg", // Replace with actual image
+    tags: ["SEO", "Optimization", "Traffic Growth"],
+    featured: true,
+  },
+  {
     id: 1,
     client: "Amihan",
     country: "Philippines",
@@ -46,7 +74,7 @@ const portfolioData = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     client: "Isabella",
     country: "Canada",
     service: "Social Media Management, YouTube Video SEO & Video Editing",
@@ -60,7 +88,7 @@ const portfolioData = [
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     client: "Richard",
     country: "United States",
     service: "Social Media Management",
@@ -74,7 +102,7 @@ const portfolioData = [
     featured: true,
   },
   {
-    id: 4,
+    id: 5,
     client: "Seojoon",
     country: "South Korea",
     service: "Social Media Management",
@@ -88,7 +116,7 @@ const portfolioData = [
     featured: true,
   },
   {
-    id: 5,
+    id: 6,
     client: "Hyun",
     country: "South Korea",
     service: "Social Media Advertising",
@@ -102,7 +130,7 @@ const portfolioData = [
     featured: false,
   },
   {
-    id: 6,
+    id: 7,
     client: "Lucas",
     country: "United States",
     service: "Website Creation & Management",
@@ -116,7 +144,7 @@ const portfolioData = [
     featured: false,
   },
   {
-    id: 7,
+    id: 8,
     client: "Raphael",
     country: "France",
     service: "Social Media Management & Video Editing",
@@ -130,7 +158,7 @@ const portfolioData = [
     featured: false,
   },
   {
-    id: 8,
+    id: 9,
     client: "Feng",
     country: "China",
     service: "B2B Lead Generation",
