@@ -108,6 +108,7 @@ const ServiceCard = memo(({ service, index }) => {
           className="object-cover"
           loading={index === 0 ? "eager" : "lazy"}
           decoding="async"
+          quality={60}
         />
       </div>
       <div className="p-6 border border-white hover:border-indigo-600 transition-colors duration-200">

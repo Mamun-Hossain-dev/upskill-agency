@@ -1,20 +1,25 @@
 "use client";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import Image from "next/image";
 
 // Add display name to memoized component
 const TestimonialSlide = memo(({ testimonial }) => (
   <div className="w-full flex-shrink-0">
     <div className="p-10 md:p-14 lg:p-20">
       <div className="flex flex-col lg:flex-row items-center gap-10">
-        <img
-          src={testimonial.image}
-          alt={testimonial.name}
-          width={144}
-          height={144}
-          loading="lazy"
-          className="w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover shadow-xl border-4 border-violet-500 hover:scale-105 transition-transform"
-        />
+        <div className="relative w-28 h-28 lg:w-36 lg:h-36 rounded-full overflow-hidden shadow-xl border-4 border-violet-500 hover:scale-105 transition-transform">
+          <Image
+            src={testimonial.image}
+            alt={testimonial.name}
+            fill
+            className="object-cover"
+            quality={55}
+            sizes="(max-width: 768px) 7rem, 9rem"
+            priority={false}
+          />
+        </div>
+
         <div className="flex-1 text-center lg:text-left">
           <div className="flex justify-center lg:justify-start mb-4">
             {Array.from({ length: 5 }, (_, i) => (

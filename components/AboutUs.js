@@ -91,6 +91,7 @@ const AboutUs = () => {
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
           priority
+          quality={85}
         />
 
         {/* Rating badge */}

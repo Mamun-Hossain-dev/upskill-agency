@@ -121,6 +121,7 @@ const HeroSection = memo(() => (
       sizes="(max-width: 768px) 100vw, 80vw"
       loading="eager"
       decoding="sync"
+      quality={35}
     />
     <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-xl">
       <div className="text-center text-white px-4">

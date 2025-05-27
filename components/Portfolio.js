@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ExternalLink,
   Eye,
@@ -40,7 +41,7 @@ const portfolioData = [
     description:
       "I worked with Amihan to run result-driven advertising campaigns on both social media platforms and Google Ads. My responsibilities included market research, campaign setup, ad creative development, and continuous performance monitoring. These campaigns helped increase online visibility, attract new customers, and achieve measurable business growth.",
     clientImage: "/images/clients/one1.png",
-    workImage: "portfolio/eco.jpg",
+    workImage: "/portfolio/eco.jpg",
     tags: ["Advertising", "Google Ads", "Strategy"],
     featured: true,
   },
@@ -54,7 +55,7 @@ const portfolioData = [
     description:
       "I collaborated with Isabella to manage her social media presence and grow her YouTube channel. My tasks included creating and scheduling engaging social media content, optimizing YouTube videos for SEO (titles, tags, descriptions, and thumbnails), and editing videos to ensure high-quality, audience-friendly content. This holistic approach helped increase her online visibility and grow her follower base across platforms.",
     clientImage: "/images/clients/two2.png",
-    workImage: "portfolio/isabella.jpg",
+    workImage: "/portfolio/isabella.jpg",
     tags: ["YouTube SEO", "Video Editing", "Social Management"],
     featured: true,
   },
@@ -66,9 +67,9 @@ const portfolioData = [
     title: "Strategic Social Presence Management",
     category: "Digital Marketing",
     description:
-      "I worked closely with Richard to manage and maintain his brand’s presence across major social media platforms. My responsibilities included creating visually appealing content, scheduling regular posts, engaging with the audience, and tracking performance metrics. Through a consistent and strategic approach, we were able to enhance brand engagement and community growth.",
+      "I worked closely with Richard to manage and maintain his brand's presence across major social media platforms. My responsibilities included creating visually appealing content, scheduling regular posts, engaging with the audience, and tracking performance metrics. Through a consistent and strategic approach, we were able to enhance brand engagement and community growth.",
     clientImage: "/images/clients/there3.png",
-    workImage: "portfolio/richard.jpg",
+    workImage: "/portfolio/richard.jpg",
     tags: ["Content", "Engagement", "Analytics"],
     featured: true,
   },
@@ -82,7 +83,7 @@ const portfolioData = [
     description:
       "We managed Seojoon's social presence across platforms with content creation, scheduling, engagement, and analytics. Engagement and visibility significantly improved.",
     clientImage: "/images/clients/four4.png",
-    workImage: "portfolio/seojoon.png",
+    workImage: "/portfolio/seojoon.png",
     tags: ["Content", "Engagement", "Scheduling"],
     featured: true,
   },
@@ -96,7 +97,7 @@ const portfolioData = [
     description:
       "Ran optimized ad campaigns for Hyun focusing on awareness and conversions. Strong engagement and great ROI.",
     clientImage: "/images/clients/five5.png",
-    workImage: "portfolio/hyon.png",
+    workImage: "/portfolio/hyon.png",
     tags: ["Ads", "Optimization", "Conversions"],
     featured: false,
   },
@@ -110,7 +111,7 @@ const portfolioData = [
     description:
       "Designed and managed Lucas's business website with full setup, SEO, and maintenance. Site is secure and fully responsive.",
     clientImage: "/images/clients/six6.png",
-    workImage: "portfolio/lucas.jpeg",
+    workImage: "/portfolio/lucas.jpeg",
     tags: ["Web Design", "SEO", "Maintenance"],
     featured: false,
   },
@@ -124,7 +125,7 @@ const portfolioData = [
     description:
       "I partnered with Raphael to manage his social media presence and produce high-quality video content for his brand. My work included planning and scheduling engaging posts, interacting with the audience, and editing videos for various platforms to ensure a professional and consistent look. These efforts helped strengthen his brand identity and improve audience engagement.",
     clientImage: "/images/clients/seven7.png",
-    workImage: "portfolio/rafael.jpeg",
+    workImage: "/portfolio/rafael.jpeg",
     tags: ["Social Media", "Video Editing", "Branding"],
     featured: false,
   },
@@ -138,7 +139,7 @@ const portfolioData = [
     description:
       "I worked with Feng to generate high-quality B2B leads tailored to his target market and business goals. My tasks included researching potential clients, building verified lead lists, and using tools like LinkedIn and email outreach to connect with decision-makers. The campaign successfully provided a consistent stream of qualified leads, helping to grow his business network and opportunities.",
     clientImage: "/images/clients/eight8.png",
-    workImage: "portfolio/feng.jpg",
+    workImage: "/portfolio/feng.jpg",
     tags: ["B2B", "Leads", "Outreach"],
     featured: false,
   },
@@ -191,12 +192,14 @@ const PortfolioCard = memo(({ project }) => {
     >
       <Link href={`/portfolio/${project.id}`}>
         <figure className="h-64 overflow-hidden relative">
-          <img
+          <Image
             src={project.workImage}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            quality={65}
             loading="lazy"
-            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {project.featured && (
@@ -274,14 +277,18 @@ const Banner = memo(() => {
     <section className="relative h-96 md:h-[500px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img
-          src="images/banner2.webp"
-          alt="Portfolio Banner"
-          className="w-full h-full object-cover"
-          loading="eager"
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+        <div className="w-full h-full relative">
+          <Image
+            src="/images/banner2.webp"
+            alt="Portfolio Banner"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            quality={65}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+        </div>
       </div>
 
       {/* Content */}
@@ -316,7 +323,7 @@ const Banner = memo(() => {
             industries achieve their digital goals.
           </motion.p>
 
-          {/* Optimized floating elements */}
+          {/* Floating elements */}
           <FloatingElement
             className="absolute top-20 right-20 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"
             delay={0}
@@ -328,7 +335,7 @@ const Banner = memo(() => {
         </div>
       </div>
 
-      {/* Simplified scroll indicator */}
+      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         initial={{ opacity: 0, y: 10 }}

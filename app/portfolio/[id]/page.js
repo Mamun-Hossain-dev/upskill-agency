@@ -28,6 +28,8 @@ const portfolioData = [
     workImage: "portfolio/eco.jpg",
     tags: ["Advertising", "Google Ads", "Strategy"],
     featured: true,
+    duration: "3 months",
+    year: 2023,
   },
   {
     id: 2,
@@ -42,6 +44,8 @@ const portfolioData = [
     workImage: "portfolio/isabella.jpg",
     tags: ["YouTube SEO", "Video Editing", "Social Management"],
     featured: true,
+    duration: "6 months",
+    year: 2023,
   },
   {
     id: 3,
@@ -56,6 +60,8 @@ const portfolioData = [
     workImage: "portfolio/richard.jpg",
     tags: ["Content", "Engagement", "Analytics"],
     featured: true,
+    duration: "4 months",
+    year: 2024,
   },
   {
     id: 4,
@@ -70,6 +76,8 @@ const portfolioData = [
     workImage: "portfolio/seojoon.png",
     tags: ["Content", "Engagement", "Scheduling"],
     featured: true,
+    duration: "2 months",
+    year: 2024,
   },
   {
     id: 5,
@@ -84,6 +92,8 @@ const portfolioData = [
     workImage: "portfolio/hyon.png",
     tags: ["Ads", "Optimization", "Conversions"],
     featured: false,
+    duration: "1 month",
+    year: 2024,
   },
   {
     id: 6,
@@ -98,6 +108,8 @@ const portfolioData = [
     workImage: "portfolio/lucas.jpeg",
     tags: ["Web Design", "SEO", "Maintenance"],
     featured: false,
+    duration: "2 months",
+    year: 2023,
   },
   {
     id: 7,
@@ -112,6 +124,8 @@ const portfolioData = [
     workImage: "portfolio/rafael.jpeg",
     tags: ["Social Media", "Video Editing", "Branding"],
     featured: false,
+    duration: "3 months",
+    year: 2024,
   },
   {
     id: 8,
@@ -126,6 +140,8 @@ const portfolioData = [
     workImage: "portfolio/feng.jpg",
     tags: ["B2B", "Leads", "Outreach"],
     featured: false,
+    duration: "2 months",
+    year: 2023,
   },
 ];
 
@@ -224,6 +240,7 @@ export default function ProjectDetailPage() {
                       alt={`${project.client} - Client`}
                       width={328}
                       height={228}
+                      quality={55}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -253,6 +270,7 @@ export default function ProjectDetailPage() {
                     alt={project.title}
                     width={800}
                     height={500}
+                    quality={45}
                     className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>

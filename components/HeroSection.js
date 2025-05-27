@@ -189,7 +189,7 @@ const HeroSection = memo(() => {
           fill
           className="object-cover object-center"
           priority
-          quality={85} // Reduced from 100 to 85 for better performance
+          quality={80} // Reduced from 100 to 80 for better performance
           sizes="100vw"
           placeholder="blur"
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R6i+gaA=="
@@ -285,7 +285,7 @@ const HeroSection = memo(() => {
                     height={40}
                     className="aspect-square object-cover"
                     loading="lazy" // Lazy load user avatars
-                    quality={80} // Reduced quality for avatars
+                    quality={50} // Reduced quality for avatars
                   />
                 </motion.span>
               ))}
