@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UpSkill Digital Agency
 
-## Getting Started
+Professional web development, digital marketing, SEO, and creative solutions to grow your business online.
 
-First, run the development server:
+---
+
+## 🚀 Overview
+
+UpSkill Digital Agency is a full-service digital agency based in Bangladesh, delivering impactful digital experiences since 2018. We help businesses and entrepreneurs worldwide achieve their goals through innovative web development, data-driven marketing, and creative design. Our team is passionate about quality, results, and client success.
+
+---
+
+## 🌟 Key Features
+
+- Modern, responsive website built with [Next.js](https://nextjs.org/)
+- Comprehensive digital marketing and SEO services
+- Social media management and advertising
+- B2B lead generation and campaign management
+- Professional video editing and content creation
+- Real client testimonials and portfolio showcase
+- Contact form with email integration
+- User authentication for submitting reviews
+
+---
+
+## 🛠️ Services We Offer
+
+- **Digital Marketing**: Strategies to drive traffic, engagement, and conversions across all major platforms.
+- **Social Media Advertising**: Targeted ads on Facebook, Instagram, LinkedIn, and more.
+- **Social Media Management**: Content creation, scheduling, and audience engagement.
+- **Google Ads (Search, Display & YouTube)**: Certified experts for high-converting campaigns.
+- **Facebook Campaigns with Pixel & Conversion API**: Data-driven ad tracking and ROI.
+- **B2B Lead Generation**: Verified leads via LinkedIn, Google, and email outreach.
+- **Instagram Organic Growth**: Authentic methods for real followers and engagement.
+- **YouTube SEO & Video Promotion**: Boost video rankings and organic views.
+- **Website SEO**: Keyword research, on-page & technical SEO, and backlinks.
+- **Website Creation & Design**: Modern, SEO-friendly, and conversion-focused websites.
+- **Video Editing**: Professional editing for social, YouTube, and marketing.
+
+---
+
+## 🏆 Portfolio Highlights
+
+Some of our recent projects and clients:
+
+- **Abdul Rahman (Qatar)**: Comprehensive SEO for online visibility
+- **Joseph (Croatia)**: Strategic SEO campaign
+- **Amihan (Philippines)**: Full-funnel advertising campaigns
+- **Isabella (Canada)**: YouTube & social growth strategy
+- **Richard (USA)**: Strategic social presence management
+- **Lucas (USA)**: Professional business website
+- **Feng (China)**: Qualified B2B lead campaign
+
+> See more in the [Portfolio section](./app/portfolio/page.js)
+
+---
+
+## 💬 What Our Clients Say
+
+> "Working with this team was a game-changer. Their ability to understand our goals and translate them into a functional, engaging website exceeded all expectations." — _Emily Carter, EduGrowth Solutions_
+
+> "Our online training portal is now faster, more user-friendly, and mobile-optimized. We've received great feedback from participants and instructors alike." — _Michael Thompson, NextGen Skills Hub_
+
+> "They brought our vision to life with such precision. The website reflects our brand perfectly, and client inquiries have significantly increased." — _Natalie Brown, BrightPath Advisors_
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/` — Next.js app directory (pages, layouts, routes)
+- `components/` — Reusable UI components
+- `public/` — Static assets (images, data, icons)
+- `context/` — React context (e.g., authentication)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📬 Contact & Support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Email:** [Upskilldigitalagency@gmail.com](mailto:Upskilldigitalagency@gmail.com)
+- **Phone:** +880 1619599140
+- **Address:** 78 Faidabad transmitter moor, Design Uttarkhan, Dhaka-1230
+- **Facebook:** [UpSkill Digital Agency](https://www.facebook.com/profile.php?id=61575251046929)
+- **Instagram:** [@upskilldigitalagency](https://www.instagram.com/upskilldigitalagency/?igsh=cXNrN2UyZnBkbXhp#)
+- **LinkedIn:** [UpSkill IT Institute Digital Agency](https://www.linkedin.com/company/upskill-it-institute-digital-agency/posts/?feedView=all)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧑‍💻 Tech Stack
+
+- [Next.js 15](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Recharts](https://recharts.org/)
+- [Axios](https://axios-http.com/)
+- [Lucide React Icons](https://lucide.dev/)
+- [js-cookie](https://github.com/js-cookie/js-cookie)
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please fork the repo and submit a pull request. For major changes, open an issue first to discuss what you would like to change.
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License.
